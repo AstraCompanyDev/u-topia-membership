@@ -9,6 +9,7 @@ import Messages from "./pages/Messages";
 import Goals from "./pages/Goals";
 import Members from "./pages/Members";
 import Files from "./pages/Files";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/goals" element={<Layout><Goals /></Layout>} />
           <Route path="/members" element={<Layout><Members /></Layout>} />
           <Route path="/files" element={<Layout><Files /></Layout>} />
+          <Route path="/settings" element={<Layout><Settings /></Layout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

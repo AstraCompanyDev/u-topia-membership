@@ -146,8 +146,10 @@ export function AppSidebar() {
                 <p className="text-sm font-medium truncate">John Smith</p>
                 <p className="text-xs text-muted-foreground">Online</p>
               </div>
-              <Button variant="ghost" size="sm">
-                <Settings className="h-4 w-4" />
+              <Button variant="ghost" size="sm" asChild>
+                <NavLink to="/settings">
+                  <Settings className="h-4 w-4" />
+                </NavLink>
               </Button>
             </div>
           ) : (
