@@ -1,30 +1,76 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { Mail, MessageSquare, Send } from "lucide-react";
 
 export default function Contact() {
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    // Pre-fill user's email and name if logged in
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        if (emailInput) emailInput.value = user.email || "";
+        
+        // Fetch user's name from profile
+        supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", user.id)
+          .single()
+          .then(({ data }) => {
+            if (data) {
+              const nameInput = document.getElementById('name') as HTMLInputElement;
+              if (nameInput) nameInput.value = data.full_name || "";
+            }
+          });
+      }
+    });
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    
     const formData = new FormData(e.currentTarget);
     const contactData = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      subject: formData.get('subject'),
-      message: formData.get('message'),
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
     };
+
+    const { data: { user } } = await supabase.auth.getUser();
     
-    console.log('Contact form submitted:', contactData);
-    toast({
-      title: "Message Sent! 📧",
-      description: "We'll get back to you as soon as possible.",
-    });
-    e.currentTarget.reset();
+    const { error } = await supabase
+      .from("contact_submissions")
+      .insert({
+        user_id: user?.id,
+        ...contactData,
+      });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Message Sent! 📧",
+        description: "We'll get back to you as soon as possible.",
+      });
+      e.currentTarget.reset();
+    }
+    
+    setLoading(false);
   };
 
   return (
@@ -118,9 +164,9 @@ export default function Contact() {
               />
             </div>
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={loading}>
               <Send className="h-4 w-4 mr-2" />
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </CardContent>

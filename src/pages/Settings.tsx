@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,14 +8,74 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Camera, LogOut, CreditCard, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+  const [fullName, setFullName] = useState("");
+  const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleLogout = () => {
-    // TODO: Implement logout functionality when backend is connected
-    console.log("Logging out...");
-    navigate("/");
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      setEmail(user.email || "");
+      const { data } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+      
+      if (data) {
+        setProfile(data);
+        setFullName(data.full_name || "");
+        setBio(data.bio || "");
+      }
+    }
+  };
+
+  const handleUpdateProfile = async () => {
+    setLoading(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (user) {
+      const { error } = await supabase
+        .from("profiles")
+        .update({
+          full_name: fullName,
+          bio: bio,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", user.id);
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Profile updated successfully",
+        });
+        fetchProfile();
+      }
+    }
+    setLoading(false);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/auth");
   };
 
   const handleCancelSubscription = () => {
@@ -73,7 +134,8 @@ export default function Settings() {
             <Input
               id="name"
               placeholder="John Smith"
-              defaultValue="John Smith"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
           </div>
 
@@ -84,12 +146,15 @@ export default function Settings() {
               id="bio"
               placeholder="Tell us about yourself and your entrepreneurial journey..."
               rows={4}
-              defaultValue="Serial entrepreneur focused on SaaS products. Currently building my 3rd startup."
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
             />
             <p className="text-xs text-muted-foreground">Brief description for your profile. Max 200 characters.</p>
           </div>
 
-          <Button>Save Changes</Button>
+          <Button onClick={handleUpdateProfile} disabled={loading}>
+            {loading ? "Saving..." : "Save Changes"}
+          </Button>
         </CardContent>
       </Card>
 
@@ -110,7 +175,8 @@ export default function Settings() {
               id="email"
               type="email"
               placeholder="john@example.com"
-              defaultValue="john@example.com"
+              value={email}
+              disabled
             />
             <p className="text-xs text-muted-foreground">This is the email associated with your account</p>
           </div>
