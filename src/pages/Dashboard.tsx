@@ -86,10 +86,7 @@ export default function Dashboard() {
   };
 
   const handleGetHelp = () => {
-    toast({
-      title: "Help Center",
-      description: "Need support? We're here to help!",
-    });
+    navigate('/contact');
   };
 
   return (
