@@ -79,10 +79,7 @@ export default function Dashboard() {
   };
 
   const handleInviteMember = () => {
-    toast({
-      title: "Invite Members",
-      description: "This feature will be available once backend is connected.",
-    });
+    navigate('/members');
   };
 
   const handleGetHelp = () => {
