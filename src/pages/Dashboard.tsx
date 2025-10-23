@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { 
   Target, 
   TrendingUp, 
@@ -36,6 +44,54 @@ const upcomingEvents = [
 ];
 
 export default function Dashboard() {
+  const [goalDialogOpen, setGoalDialogOpen] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleCreateGoal = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const goalData = {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      deadline: formData.get('deadline'),
+      category: formData.get('category'),
+    };
+    
+    console.log('Creating goal:', goalData);
+    setGoalDialogOpen(false);
+    toast({
+      title: "Goal Created! 🎯",
+      description: `"${goalData.title}" has been added to your goals.`,
+    });
+  };
+
+  const handleSendUpdate = () => {
+    navigate('/messages');
+    toast({
+      title: "Opening Messages",
+      description: "Share your progress with the team!",
+    });
+  };
+
+  const handleTrackGoal = () => {
+    navigate('/goals');
+  };
+
+  const handleInviteMember = () => {
+    toast({
+      title: "Invite Members",
+      description: "This feature will be available once backend is connected.",
+    });
+  };
+
+  const handleGetHelp = () => {
+    toast({
+      title: "Help Center",
+      description: "Need support? We're here to help!",
+    });
+  };
+
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -49,10 +105,79 @@ export default function Dashboard() {
             <div className="text-white">
               <h1 className="text-3xl font-bold mb-2">Welcome back, John!</h1>
               <p className="text-lg opacity-90">Let's crush those goals together 🚀</p>
-              <Button className="mt-4 bg-white text-primary hover:bg-white/90">
-                <Plus className="h-4 w-4 mr-2" />
-                Set New Goal
-              </Button>
+              <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button className="mt-4 bg-white text-primary hover:bg-white/90">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Set New Goal
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle>Create New Goal</DialogTitle>
+                    <DialogDescription>
+                      Set a new accountability goal and track your progress with the team.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleCreateGoal} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="title">Goal Title*</Label>
+                      <Input
+                        id="title"
+                        name="title"
+                        placeholder="e.g., Launch MVP"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description">Description</Label>
+                      <Textarea
+                        id="description"
+                        name="description"
+                        placeholder="Describe what you want to achieve..."
+                        rows={3}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="deadline">Deadline*</Label>
+                      <Input
+                        id="deadline"
+                        name="deadline"
+                        type="date"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="category">Category</Label>
+                      <Select name="category" defaultValue="product">
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="product">Product Development</SelectItem>
+                          <SelectItem value="revenue">Revenue</SelectItem>
+                          <SelectItem value="team">Team Building</SelectItem>
+                          <SelectItem value="marketing">Marketing</SelectItem>
+                          <SelectItem value="personal">Personal Growth</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex justify-end space-x-3 pt-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setGoalDialogOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Goal
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
@@ -143,10 +268,14 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" className="w-full">
-              <Plus className="h-4 w-4 mr-2" />
-              Add New Goal
-            </Button>
+            <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Goal
+                </Button>
+              </DialogTrigger>
+            </Dialog>
           </CardContent>
         </Card>
 
@@ -199,7 +328,16 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
-            <Button variant="outline" className="w-full mt-4">
+            <Button 
+              variant="outline" 
+              className="w-full mt-4"
+              onClick={() => {
+                toast({
+                  title: "Calendar Coming Soon",
+                  description: "Full calendar integration will be available soon!",
+                });
+              }}
+            >
               <Calendar className="h-4 w-4 mr-2" />
               View Full Calendar
             </Button>
@@ -214,19 +352,34 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
-              <Button className="h-auto p-4 flex flex-col items-center space-y-2">
+              <Button 
+                className="h-auto p-4 flex flex-col items-center space-y-2"
+                onClick={handleSendUpdate}
+              >
                 <MessageSquare className="h-5 w-5" />
                 <span className="text-sm">Send Update</span>
               </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <Button 
+                variant="outline" 
+                className="h-auto p-4 flex flex-col items-center space-y-2"
+                onClick={handleTrackGoal}
+              >
                 <Target className="h-5 w-5" />
                 <span className="text-sm">Track Goal</span>
               </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <Button 
+                variant="outline" 
+                className="h-auto p-4 flex flex-col items-center space-y-2"
+                onClick={handleInviteMember}
+              >
                 <Users className="h-5 w-5" />
                 <span className="text-sm">Invite Member</span>
               </Button>
-              <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+              <Button 
+                variant="outline" 
+                className="h-auto p-4 flex flex-col items-center space-y-2"
+                onClick={handleGetHelp}
+              >
                 <AlertCircle className="h-5 w-5" />
                 <span className="text-sm">Get Help</span>
               </Button>
