@@ -49,9 +49,11 @@ export default function Auth() {
       });
     } else {
       toast({
-        title: "Success!",
-        description: "Your account has been created. You can now log in.",
+        title: "Account Created!",
+        description: "Let's set up your profile",
       });
+      // Redirect to onboarding
+      navigate("/onboarding");
     }
 
     setLoading(false);
