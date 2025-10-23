@@ -44,7 +44,7 @@ export default function Dashboard() {
           className="h-48 bg-cover bg-center relative"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-gradient-hero/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
           <div className="relative h-full flex items-center px-8">
             <div className="text-white">
               <h1 className="text-3xl font-bold mb-2">Welcome back, John!</h1>
