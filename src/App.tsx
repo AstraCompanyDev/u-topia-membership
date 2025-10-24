@@ -27,7 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/auth" element={<Auth />} />
           <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
-          <Route path="/" element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
+          <Route path="/" element={<Layout><Dashboard /></Layout>} />
           <Route path="/messages" element={<ProtectedRoute><Layout><Messages /></Layout></ProtectedRoute>} />
           <Route path="/messages/channel/:channelName" element={<ProtectedRoute><Layout><Messages /></Layout></ProtectedRoute>} />
           <Route path="/goals" element={<ProtectedRoute><Layout><Goals /></Layout></ProtectedRoute>} />
