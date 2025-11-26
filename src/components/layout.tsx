@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -44,6 +45,9 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             <div className="flex items-center space-x-3">
+              {/* Theme Toggle */}
+              <ThemeToggle />
+              
               {/* Notifications */}
               <Popover>
                 <PopoverTrigger asChild>
