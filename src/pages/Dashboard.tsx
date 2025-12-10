@@ -104,7 +104,7 @@ export default function Dashboard() {
             <Badge className="mb-3 bg-white/20 text-white border-white/30 hover:bg-white/30">
               Private Shareholder Portal
             </Badge>
-            <h1 className="text-3xl font-bold mb-2 text-white">Welcome to U-topia</h1>
+            <h1 className="text-3xl font-bold mb-2 text-white">Welcome to U-topia Shareholder Portal</h1>
             <p className="text-lg text-white/90 mb-4">
               Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
             </p>
