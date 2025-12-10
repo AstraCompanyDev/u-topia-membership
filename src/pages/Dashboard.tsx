@@ -23,14 +23,20 @@ import cardShares from "@/assets/card-shares.jpg";
 import cardNetwork from "@/assets/card-network.jpg";
 import cardValuation from "@/assets/card-valuation.jpg";
 import heroPeople from "@/assets/hero-people.jpg";
+import avatarVictoria from "@/assets/avatar-victoria.jpg";
+import avatarMarcus from "@/assets/avatar-marcus.jpg";
+import avatarElena from "@/assets/avatar-elena.jpg";
+import avatarJames from "@/assets/avatar-james.jpg";
+import avatarAisha from "@/assets/avatar-aisha.jpg";
+import avatarRobert from "@/assets/avatar-robert.jpg";
 
 const connections = [
-  { id: 1, name: "Victoria Sterling", role: "Founding Member", avatar: null, status: "online" },
-  { id: 2, name: "Marcus Chen", role: "Early Investor", avatar: null, status: "online" },
-  { id: 3, name: "Elena Vasquez", role: "Board Advisor", avatar: null, status: "offline" },
-  { id: 4, name: "James Whitmore", role: "Strategic Partner", avatar: null, status: "online" },
-  { id: 5, name: "Aisha Patel", role: "Founding Member", avatar: null, status: "offline" },
-  { id: 6, name: "Robert Nakamura", role: "Early Investor", avatar: null, status: "online" },
+  { id: 1, name: "Victoria Sterling", role: "Founding Member", avatar: avatarVictoria, status: "online" },
+  { id: 2, name: "Marcus Chen", role: "Early Investor", avatar: avatarMarcus, status: "online" },
+  { id: 3, name: "Elena Vasquez", role: "Board Advisor", avatar: avatarElena, status: "offline" },
+  { id: 4, name: "James Whitmore", role: "Strategic Partner", avatar: avatarJames, status: "online" },
+  { id: 5, name: "Aisha Patel", role: "Founding Member", avatar: avatarAisha, status: "offline" },
+  { id: 6, name: "Robert Nakamura", role: "Early Investor", avatar: avatarRobert, status: "online" },
 ];
 
 const newsUpdates = [
