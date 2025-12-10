@@ -18,6 +18,10 @@ import {
 } from "lucide-react";
 import heroImage from "@/assets/hero-dashboard.jpg";
 import utopiaLifestyle from "@/assets/utopia-lifestyle.avif";
+import cardPortfolio from "@/assets/card-portfolio.jpg";
+import cardShares from "@/assets/card-shares.jpg";
+import cardNetwork from "@/assets/card-network.jpg";
+import cardValuation from "@/assets/card-valuation.jpg";
 
 const connections = [
   { id: 1, name: "Victoria Sterling", role: "Founding Member", avatar: null, status: "online" },
@@ -115,56 +119,94 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Portfolio Value</CardTitle>
-            <Wallet className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$124,500</div>
-            <p className="text-xs text-muted-foreground flex items-center">
-              <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
-              <span className="text-green-500 font-medium">+12.5%</span> since inception
-            </p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Portfolio Value Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardPortfolio} 
+            alt="Portfolio background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Portfolio Value</span>
+              <Wallet className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">$124,500</div>
+              <p className="text-sm text-white/80 flex items-center mt-1">
+                <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
+                <span className="text-emerald-400 font-medium">+12.5%</span>
+                <span className="ml-1">since inception</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Share Holdings</CardTitle>
-            <Building2 className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">2,500</div>
-            <p className="text-xs text-muted-foreground">Class A Shares</p>
-          </CardContent>
-        </Card>
+        {/* Share Holdings Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardShares} 
+            alt="Shares background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Share Holdings</span>
+              <Building2 className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">2,500</div>
+              <p className="text-sm text-white/80 mt-1">Class A Shares</p>
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Network</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">847</div>
-            <p className="text-xs text-muted-foreground">Fellow Shareholders</p>
-          </CardContent>
-        </Card>
+        {/* Network Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardNetwork} 
+            alt="Network background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Network</span>
+              <Users className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">847</div>
+              <p className="text-sm text-white/80 mt-1">Fellow Shareholders</p>
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Company Valuation</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">$180M</div>
-            <p className="text-xs text-muted-foreground flex items-center">
-              <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
-              <span className="text-green-500 font-medium">+45%</span> YoY
-            </p>
-          </CardContent>
-        </Card>
+        {/* Company Valuation Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardValuation} 
+            alt="Valuation background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Company Valuation</span>
+              <TrendingUp className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">$180M</div>
+              <p className="text-sm text-white/80 flex items-center mt-1">
+                <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
+                <span className="text-emerald-400 font-medium">+45%</span>
+                <span className="ml-1">YoY</span>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
