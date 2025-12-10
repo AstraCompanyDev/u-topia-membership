@@ -4,60 +4,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* U-topia Design System - Dark premium banking aesthetic */
+/* U-topia Design System - Premium banking aesthetic */
 
 @layer base {
   :root {
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    /* Light mode - Clean professional look */
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
 
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 25 95% 53%;
-    --primary-foreground: 222 47% 6%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 47% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 222 47% 14%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 220 14% 92%;
+    --muted-foreground: 220 9% 46%;
 
     --accent: 217 90% 55%;
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 222 47% 16%;
-    --input: 222 47% 14%;
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
     --ring: 25 95% 53%;
 
-    /* Custom design tokens - U-topia dark premium */
+    /* Custom design tokens - Light mode */
     --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(25 95% 43%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(217 90% 55%) 0%, hsl(217 90% 45%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(222 47% 6%) 0%, hsl(222 47% 10%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(222 47% 10%) 0%, hsl(222 47% 6%) 100%);
-    --shadow-elevated: 0 8px 30px hsl(0 0% 0% / 0.4);
-    --shadow-glow: 0 0 40px hsl(25 95% 53% / 0.2);
-    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --gradient-hero: linear-gradient(180deg, hsl(220 20% 97%) 0%, hsl(220 20% 92%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 20% 98%) 100%);
+    --shadow-elevated: 0 8px 30px hsl(222 47% 11% / 0.1);
+    --shadow-glow: 0 0 40px hsl(25 95% 53% / 0.15);
+    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.05);
 
     --radius: 0.75rem;
 
-    --sidebar-background: 222 47% 4%;
-    --sidebar-foreground: 210 40% 98%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
     --sidebar-primary: 25 95% 53%;
-    --sidebar-primary-foreground: 222 47% 6%;
-    --sidebar-accent: 222 47% 10%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 47% 12%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 90%;
     --sidebar-ring: 25 95% 53%;
   }
 
   .dark {
+    /* Dark mode - Premium fintech look */
     --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
@@ -85,6 +87,15 @@
     --border: 222 47% 16%;
     --input: 222 47% 14%;
     --ring: 25 95% 53%;
+
+    /* Custom design tokens - Dark mode */
+    --gradient-primary: linear-gradient(135deg, hsl(25 95% 53%) 0%, hsl(25 95% 43%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(217 90% 55%) 0%, hsl(217 90% 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(222 47% 6%) 0%, hsl(222 47% 10%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(222 47% 10%) 0%, hsl(222 47% 6%) 100%);
+    --shadow-elevated: 0 8px 30px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px hsl(25 95% 53% / 0.2);
+    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
 
     --sidebar-background: 222 47% 4%;
     --sidebar-foreground: 210 40% 98%;
