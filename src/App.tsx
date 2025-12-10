@@ -7,7 +7,6 @@ import { ThemeProvider } from "./components/theme-provider";
 import Layout from "./components/layout";
 import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
-import Goals from "./pages/Goals";
 import Members from "./pages/Members";
 import Files from "./pages/Files";
 import Settings from "./pages/Settings";
@@ -32,7 +31,6 @@ const App = () => (
           <Route path="/" element={<Layout><Dashboard /></Layout>} />
           <Route path="/messages" element={<ProtectedRoute><Layout><Messages /></Layout></ProtectedRoute>} />
           <Route path="/messages/channel/:channelName" element={<ProtectedRoute><Layout><Messages /></Layout></ProtectedRoute>} />
-          <Route path="/goals" element={<ProtectedRoute><Layout><Goals /></Layout></ProtectedRoute>} />
           <Route path="/members" element={<ProtectedRoute><Layout><Members /></Layout></ProtectedRoute>} />
           <Route path="/files" element={<ProtectedRoute><Layout><Files /></Layout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />

@@ -1,15 +1,13 @@
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home,
   MessageSquare,
   Users,
   Settings,
-  Target,
   FileText,
-  Bell,
   Search,
   ChevronRight,
+  Building2,
 } from "lucide-react";
 
 import {
@@ -30,16 +28,15 @@ import { Input } from "@/components/ui/input";
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
   { title: "Messages", url: "/messages", icon: MessageSquare },
-  { title: "Goals", url: "/goals", icon: Target },
-  { title: "Members", url: "/members", icon: Users },
-  { title: "Files", url: "/files", icon: FileText },
+  { title: "Network", url: "/members", icon: Users },
+  { title: "Documents", url: "/files", icon: FileText },
 ];
 
 const channels = [
-  { name: "general", unread: 3 },
-  { name: "accountability-check", unread: 0 },
-  { name: "wins-celebrations", unread: 7 },
-  { name: "resources-sharing", unread: 1 },
+  { name: "announcements", unread: 2 },
+  { name: "general-discussion", unread: 0 },
+  { name: "investor-updates", unread: 5 },
+  { name: "product-feedback", unread: 1 },
 ];
 
 export function AppSidebar() {
@@ -48,7 +45,6 @@ export function AppSidebar() {
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
-  const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive ? "bg-primary/10 text-primary font-medium" : "hover:bg-muted/50";
 
@@ -59,15 +55,23 @@ export function AppSidebar() {
         <div className="p-4 border-b">
           {!collapsed && (
             <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-lg">AccountableHQ</h2>
-                <p className="text-sm text-muted-foreground">Entrepreneur Group</p>
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
+                  <Building2 className="h-4 w-4 text-white" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">U-topia</h2>
+                  <p className="text-xs text-muted-foreground">Shareholder Portal</p>
+                </div>
               </div>
               <SidebarTrigger className="h-6 w-6" />
             </div>
           )}
           {collapsed && (
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center gap-2">
+              <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
+                <Building2 className="h-4 w-4 text-white" />
+              </div>
               <SidebarTrigger className="h-6 w-6" />
             </div>
           )}
@@ -79,7 +83,7 @@ export function AppSidebar() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Search messages..."
+                placeholder="Search..."
                 className="pl-10 bg-muted/30"
               />
             </div>
@@ -139,12 +143,12 @@ export function AppSidebar() {
         <div className="mt-auto p-4 border-t">
           {!collapsed ? (
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold">
+              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold text-sm">
                 JS
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">John Smith</p>
-                <p className="text-xs text-muted-foreground">Online</p>
+                <p className="text-xs text-muted-foreground">Founding Member</p>
               </div>
               <Button variant="ghost" size="sm" asChild>
                 <NavLink to="/settings">
@@ -154,7 +158,7 @@ export function AppSidebar() {
             </div>
           ) : (
             <div className="flex justify-center">
-              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold">
+              <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold text-sm">
                 JS
               </div>
             </div>
