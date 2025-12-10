@@ -1,167 +1,112 @@
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import {
-  Target,
   TrendingUp,
   Users,
   MessageSquare,
   Calendar,
-  CheckCircle,
-  Clock,
-  AlertCircle,
-  Plus,
-  ArrowUp,
+  Newspaper,
+  ExternalLink,
+  Wallet,
+  Building2,
+  ArrowUpRight,
 } from "lucide-react";
 import heroImage from "@/assets/hero-dashboard.jpg";
 
-const goals = [
-  { id: 1, title: "Launch MVP", progress: 75, deadline: "Dec 15", status: "on-track" },
-  { id: 2, title: "Reach $10k MRR", progress: 45, deadline: "Jan 30", status: "behind" },
-  { id: 3, title: "Hire 2 developers", progress: 25, deadline: "Feb 15", status: "on-track" },
+const connections = [
+  { id: 1, name: "Victoria Sterling", role: "Founding Member", avatar: null, status: "online" },
+  { id: 2, name: "Marcus Chen", role: "Early Investor", avatar: null, status: "online" },
+  { id: 3, name: "Elena Vasquez", role: "Board Advisor", avatar: null, status: "offline" },
+  { id: 4, name: "James Whitmore", role: "Strategic Partner", avatar: null, status: "online" },
+  { id: 5, name: "Aisha Patel", role: "Founding Member", avatar: null, status: "offline" },
+  { id: 6, name: "Robert Nakamura", role: "Early Investor", avatar: null, status: "online" },
 ];
 
-const recentActivity = [
-  { user: "Sarah Chen", action: "completed goal", target: "Product roadmap v2", time: "2 hours ago" },
-  { user: "Mike Rodriguez", action: "shared update", target: "Weekly metrics", time: "4 hours ago" },
-  { user: "Alex Johnson", action: "joined channel", target: "#wins-celebrations", time: "6 hours ago" },
-  { user: "Emma Davis", action: "uploaded file", target: "Market research.pdf", time: "1 day ago" },
+const newsUpdates = [
+  { 
+    id: 1, 
+    title: "Q4 2024 Shareholder Report Released", 
+    excerpt: "Review our latest quarterly performance metrics and strategic initiatives for the upcoming year.",
+    date: "Dec 8, 2024",
+    type: "report"
+  },
+  { 
+    id: 2, 
+    title: "U-topia Secures Series B Funding", 
+    excerpt: "We're thrilled to announce $50M in Series B funding to accelerate our mission of banking for the future.",
+    date: "Dec 5, 2024",
+    type: "announcement"
+  },
+  { 
+    id: 3, 
+    title: "New Digital Asset Features Coming Q1 2025", 
+    excerpt: "Exciting new cryptocurrency integration and DeFi features are on the roadmap for early next year.",
+    date: "Dec 2, 2024",
+    type: "product"
+  },
+  { 
+    id: 4, 
+    title: "Annual Shareholder Meeting - Save the Date", 
+    excerpt: "Mark your calendars for our virtual annual meeting on January 15th, 2025.",
+    date: "Nov 28, 2024",
+    type: "event"
+  },
 ];
 
 const upcomingEvents = [
-  { title: "Weekly Check-in", date: "Today, 3:00 PM", type: "meeting" },
-  { title: "Goal Review", date: "Tomorrow, 10:00 AM", type: "review" },
-  { title: "Guest Speaker: YC Partner", date: "Friday, 2:00 PM", type: "event" },
+  { title: "Shareholder Q&A Session", date: "Dec 12, 3:00 PM", type: "meeting" },
+  { title: "Product Roadmap Preview", date: "Dec 18, 10:00 AM", type: "webinar" },
+  { title: "Annual Meeting", date: "Jan 15, 2:00 PM", type: "event" },
 ];
 
 export default function Dashboard() {
-  const [goalDialogOpen, setGoalDialogOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleCreateGoal = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const goalData = {
-      title: formData.get("title"),
-      description: formData.get("description"),
-      deadline: formData.get("deadline"),
-      category: formData.get("category"),
-    };
-
-    console.log("Creating goal:", goalData);
-    setGoalDialogOpen(false);
-    toast({
-      title: "Goal Created! 🎯",
-      description: `"${goalData.title}" has been added to your goals.`,
-    });
-  };
-
-  const handleSendUpdate = () => {
-    navigate("/messages");
-    toast({
-      title: "Opening Messages",
-      description: "Share your progress with the team!",
-    });
-  };
-
-  const handleTrackGoal = () => {
-    navigate("/goals");
-  };
-
-  const handleInviteMember = () => {
+  const handleViewAllConnections = () => {
     navigate("/members");
   };
 
-  const handleGetHelp = () => {
-    navigate("/contact");
+  const handleOpenMessages = () => {
+    navigate("/messages");
+  };
+
+  const handleReadMore = (newsId: number) => {
+    toast({
+      title: "Opening Article",
+      description: "Full article view coming soon.",
+    });
   };
 
   return (
     <div className="space-y-8">
       {/* Hero Section */}
       <div className="relative overflow-hidden rounded-xl">
-        <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: `url(${heroImage})` }}>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+        <div className="h-52 bg-cover bg-center relative" style={{ backgroundImage: `url(${heroImage})` }}>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/40" />
           <div className="relative h-full flex items-center px-8">
-            <div className="text-white">
-              <h1 className="text-3xl font-bold mb-2">HI Druvo, Welcome Back!</h1>
-              <p className="text-lg opacity-90">Let's crush those goals together 🚀</p>
-              <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="mt-4 bg-white text-primary hover:bg-white/90">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Set New Goal
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
-                  <DialogHeader>
-                    <DialogTitle>Create New Goal</DialogTitle>
-                    <DialogDescription>
-                      Set a new accountability goal and track your progress with the team.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleCreateGoal} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="title">Goal Title*</Label>
-                      <Input id="title" name="title" placeholder="e.g., Launch MVP" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Textarea
-                        id="description"
-                        name="description"
-                        placeholder="Describe what you want to achieve..."
-                        rows={3}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="deadline">Deadline*</Label>
-                      <Input id="deadline" name="deadline" type="date" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="category">Category</Label>
-                      <Select name="category" defaultValue="product">
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="product">Product Development</SelectItem>
-                          <SelectItem value="revenue">Revenue</SelectItem>
-                          <SelectItem value="team">Team Building</SelectItem>
-                          <SelectItem value="marketing">Marketing</SelectItem>
-                          <SelectItem value="personal">Personal Growth</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex justify-end space-x-3 pt-4">
-                      <Button type="button" variant="outline" onClick={() => setGoalDialogOpen(false)}>
-                        Cancel
-                      </Button>
-                      <Button type="submit">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Create Goal
-                      </Button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
+            <div className="text-white max-w-2xl">
+              <Badge className="mb-3 bg-white/20 text-white border-white/30 hover:bg-white/30">
+                Private Shareholder Portal
+              </Badge>
+              <h1 className="text-3xl font-bold mb-2">Welcome to U-topia</h1>
+              <p className="text-lg opacity-90 mb-4">
+                Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
+              </p>
+              <div className="flex gap-3">
+                <Button className="bg-white text-primary hover:bg-white/90" onClick={handleOpenMessages}>
+                  <MessageSquare className="h-4 w-4 mr-2" />
+                  Join Discussion
+                </Button>
+                <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Investor Portal
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -171,208 +116,171 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Goals</CardTitle>
-            <Target className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Portfolio Value</CardTitle>
+            <Wallet className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">
-              <span className="text-accent font-medium">+2</span> from last month
+            <div className="text-2xl font-bold">$124,500</div>
+            <p className="text-xs text-muted-foreground flex items-center">
+              <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
+              <span className="text-green-500 font-medium">+12.5%</span> since inception
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Share Holdings</CardTitle>
+            <Building2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">73%</div>
-            <p className="text-xs text-muted-foreground">
-              <ArrowUp className="inline h-3 w-3 text-accent" />
-              <span className="text-accent font-medium">+5%</span> from last week
-            </p>
+            <div className="text-2xl font-bold">2,500</div>
+            <p className="text-xs text-muted-foreground">Class A Shares</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Team Members</CardTitle>
+            <CardTitle className="text-sm font-medium">Network</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground">2 online now</p>
+            <div className="text-2xl font-bold">847</div>
+            <p className="text-xs text-muted-foreground">Fellow Shareholders</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Messages Today</CardTitle>
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Company Valuation</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">47</div>
-            <p className="text-xs text-muted-foreground">
-              <span className="text-accent font-medium">+12</span> from yesterday
+            <div className="text-2xl font-bold">$180M</div>
+            <p className="text-xs text-muted-foreground flex items-center">
+              <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
+              <span className="text-green-500 font-medium">+45%</span> YoY
             </p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Current Goals */}
-        <Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Latest News & Updates - Takes 2 columns */}
+        <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Current Goals</CardTitle>
-            <CardDescription>Your active accountability targets</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Newspaper className="h-5 w-5" />
+                  Latest News & Updates
+                </CardTitle>
+                <CardDescription>Stay informed about U-topia's progress</CardDescription>
+              </div>
+              <Button variant="outline" size="sm">View All</Button>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {goals.map((goal) => (
-              <div key={goal.id} className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div
-                      className={`w-3 h-3 rounded-full ${
-                        goal.status === "on-track"
-                          ? "bg-green-500"
-                          : goal.status === "behind"
-                            ? "bg-red-500"
-                            : "bg-yellow-500"
-                      }`}
-                    />
-                    <h4 className="font-medium">{goal.title}</h4>
+          <CardContent className="space-y-4">
+            {newsUpdates.map((news) => (
+              <div 
+                key={news.id} 
+                className="p-4 rounded-lg border bg-card hover:bg-muted/30 transition-colors cursor-pointer group"
+                onClick={() => handleReadMore(news.id)}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="secondary" className="text-xs">
+                        {news.type === 'report' && 'Report'}
+                        {news.type === 'announcement' && 'Announcement'}
+                        {news.type === 'product' && 'Product'}
+                        {news.type === 'event' && 'Event'}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{news.date}</span>
+                    </div>
+                    <h4 className="font-semibold group-hover:text-primary transition-colors">{news.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{news.excerpt}</p>
                   </div>
-                  <Badge variant={goal.status === "on-track" ? "default" : "secondary"}>Due {goal.deadline}</Badge>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Progress</span>
-                    <span className="font-medium">{goal.progress}%</span>
-                  </div>
-                  <Progress value={goal.progress} className="h-2" />
+                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-1" />
                 </div>
               </div>
             ))}
-            <Dialog open={goalDialogOpen} onOpenChange={setGoalDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="w-full">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add New Goal
+          </CardContent>
+        </Card>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Your Connections */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base">Your Connections</CardTitle>
+                <Button variant="ghost" size="sm" onClick={handleViewAllConnections}>
+                  View All
                 </Button>
-              </DialogTrigger>
-            </Dialog>
-          </CardContent>
-        </Card>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {connections.slice(0, 5).map((connection) => (
+                  <div key={connection.id} className="flex items-center gap-3">
+                    <div className="relative">
+                      <Avatar className="h-9 w-9">
+                        <AvatarImage src={connection.avatar || undefined} />
+                        <AvatarFallback className="bg-gradient-primary text-white text-xs">
+                          {connection.name.split(" ").map((n) => n[0]).join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span 
+                        className={`absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-card ${
+                          connection.status === 'online' ? 'bg-green-500' : 'bg-muted-foreground'
+                        }`}
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{connection.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{connection.role}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>What's happening in your group</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white text-sm font-medium">
-                    {activity.user
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+          {/* Upcoming Events */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                Upcoming Events
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {upcomingEvents.map((event, index) => (
+                  <div key={index} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Calendar className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{event.title}</p>
+                      <p className="text-xs text-muted-foreground">{event.date}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm">
-                      <span className="font-medium">{activity.user}</span>{" "}
-                      <span className="text-muted-foreground">{activity.action}</span>{" "}
-                      <span className="font-medium">{activity.target}</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Upcoming Events */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Events</CardTitle>
-            <CardDescription>Don't miss these important dates</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {upcomingEvents.map((event, index) => (
-                <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-muted/30">
-                  <div className="flex-shrink-0">
-                    {event.type === "meeting" && <Calendar className="h-4 w-4 text-primary" />}
-                    {event.type === "review" && <CheckCircle className="h-4 w-4 text-accent" />}
-                    {event.type === "event" && <Clock className="h-4 w-4 text-muted-foreground" />}
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{event.date}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Button
-              variant="outline"
-              className="w-full mt-4"
-              onClick={() => {
+                ))}
+              </div>
+              <Button variant="outline" className="w-full mt-4" onClick={() => {
                 toast({
                   title: "Calendar Coming Soon",
-                  description: "Full calendar integration will be available soon!",
+                  description: "Full event calendar will be available soon!",
                 });
-              }}
-            >
-              <Calendar className="h-4 w-4 mr-2" />
-              View Full Calendar
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common tasks and shortcuts</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button className="h-auto p-4 flex flex-col items-center space-y-2" onClick={handleSendUpdate}>
-                <MessageSquare className="h-5 w-5" />
-                <span className="text-sm">Send Update</span>
+              }}>
+                <Calendar className="h-4 w-4 mr-2" />
+                View Full Calendar
               </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleTrackGoal}
-              >
-                <Target className="h-5 w-5" />
-                <span className="text-sm">Track Goal</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleInviteMember}
-              >
-                <Users className="h-5 w-5" />
-                <span className="text-sm">Invite Member</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-auto p-4 flex flex-col items-center space-y-2"
-                onClick={handleGetHelp}
-              >
-                <AlertCircle className="h-5 w-5" />
-                <span className="text-sm">Get Help</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
