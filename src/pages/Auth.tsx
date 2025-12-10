@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, ArrowRight } from "lucide-react";
 import utopiaLifestyle from "@/assets/utopia-lifestyle.avif";
+import utopiaLogo from "@/assets/utopia-logo.avif";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -111,10 +112,11 @@ export default function Auth() {
           {/* Logo */}
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">U</span>
-              </div>
-              <span className="text-2xl font-bold text-foreground">U-topia</span>
+              <img 
+                src={utopiaLogo} 
+                alt="U-topia" 
+                className="h-10 dark:invert-0 invert"
+              />
             </div>
           </div>
 
