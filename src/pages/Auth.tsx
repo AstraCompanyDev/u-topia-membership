@@ -170,7 +170,7 @@ export default function Auth() {
                     </div>
                     <Button 
                       type="submit" 
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary" 
+                      className="w-full bg-foreground hover:bg-foreground/90 text-background" 
                       disabled={loading}
                     >
                       {loading ? (
@@ -232,7 +232,7 @@ export default function Auth() {
                     </div>
                     <Button 
                       type="submit" 
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary" 
+                      className="w-full bg-foreground hover:bg-foreground/90 text-background" 
                       disabled={loading}
                     >
                       {loading ? (
