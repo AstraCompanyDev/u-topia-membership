@@ -181,6 +181,26 @@ export default function Dashboard() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Featured Video */}
+            <div className="rounded-xl overflow-hidden border border-border bg-card">
+              <div className="aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/L39ezmt-UOc"
+                  title="U-topia Featured Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="p-4">
+                <Badge className="mb-2 bg-primary/10 text-primary border-primary/20">Featured</Badge>
+                <h4 className="font-semibold text-lg">Welcome to U-topia</h4>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Discover how we're building the bank of the future for our shareholders.
+                </p>
+              </div>
+            </div>
+
             {newsUpdates.map((news) => (
               <div 
                 key={news.id} 
