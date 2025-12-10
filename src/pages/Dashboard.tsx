@@ -22,6 +22,7 @@ import cardPortfolio from "@/assets/card-portfolio.jpg";
 import cardShares from "@/assets/card-shares.jpg";
 import cardNetwork from "@/assets/card-network.jpg";
 import cardValuation from "@/assets/card-valuation.jpg";
+import heroPeople from "@/assets/hero-people.jpg";
 
 const connections = [
   { id: 1, name: "Victoria Sterling", role: "Founding Member", avatar: null, status: "online" },
@@ -91,28 +92,31 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-sky-400 via-sky-300 to-sky-200 dark:from-slate-800 dark:via-slate-900 dark:to-slate-950">
-        <div className="h-56 relative">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
-          <div className="relative h-full flex items-center px-8">
-            <div className="max-w-2xl">
-              <Badge className="mb-3 bg-foreground/10 text-foreground border-foreground/20 hover:bg-foreground/20">
-                Private Shareholder Portal
-              </Badge>
-              <h1 className="text-3xl font-bold mb-2 text-foreground">Welcome to U-topia</h1>
-              <p className="text-lg text-foreground/80 mb-4">
-                Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
-              </p>
-              <div className="flex gap-3">
-                <Button className="bg-foreground text-background hover:bg-foreground/90" onClick={handleOpenMessages}>
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  Join Discussion
-                </Button>
-                <Button variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/10">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Investor Portal
-                </Button>
-              </div>
+      <div className="relative overflow-hidden rounded-2xl h-56">
+        <img 
+          src={heroPeople} 
+          alt="U-topia community" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="relative h-full flex items-center px-8">
+          <div className="max-w-2xl">
+            <Badge className="mb-3 bg-white/20 text-white border-white/30 hover:bg-white/30">
+              Private Shareholder Portal
+            </Badge>
+            <h1 className="text-3xl font-bold mb-2 text-white">Welcome to U-topia</h1>
+            <p className="text-lg text-white/90 mb-4">
+              Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
+            </p>
+            <div className="flex gap-3">
+              <Button className="bg-white text-black hover:bg-white/90" onClick={handleOpenMessages}>
+                <MessageSquare className="h-4 w-4 mr-2" />
+                Join Discussion
+              </Button>
+              <Button variant="outline" className="border-white/30 text-white hover:bg-white/20">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Investor Portal
+              </Button>
             </div>
           </div>
         </div>
