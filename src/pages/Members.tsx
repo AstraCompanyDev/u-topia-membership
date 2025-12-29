@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search } from "lucide-react";
+import { Search, DollarSign, ArrowUpRight, Copy, Wallet } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import NetworkVisualization from "@/components/NetworkVisualization";
+import cardEarnings from "@/assets/card-portfolio.jpg";
+import cardPending from "@/assets/card-shares.jpg";
 
 const members = [
   {
@@ -85,11 +88,100 @@ const members = [
 ];
 
 export default function Members() {
+  const { toast } = useToast();
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Team Members</h1>
-        <p className="text-muted-foreground">Connect and collaborate with fellow entrepreneurs</p>
+        <h1 className="text-3xl font-bold">My Network</h1>
+        <p className="text-muted-foreground">Connect and collaborate with fellow shareholders</p>
+      </div>
+
+      {/* Stats Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Total Earnings Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardEarnings} 
+            alt="Earnings background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Total Earnings</span>
+              <DollarSign className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">$12,450</div>
+              <p className="text-sm text-white/80 flex items-center mt-1">
+                <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
+                <span className="text-emerald-400 font-medium">+8.2%</span>
+                <span className="ml-1">this month</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Available to Withdraw Card */}
+        <div className="relative overflow-hidden rounded-xl h-40 group">
+          <img 
+            src={cardPending} 
+            alt="Withdraw background" 
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+          <div className="relative h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-white/90">Available to Withdraw</span>
+              <Wallet className="h-5 w-5 text-white/70" />
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-white">$1,250</div>
+              <Button 
+                size="sm" 
+                className="mt-2 bg-orange-500 hover:bg-orange-600 text-white"
+                onClick={() => {
+                  toast({
+                    title: "Withdrawal Requested",
+                    description: "Your withdrawal request is being processed.",
+                  });
+                }}
+              >
+                Withdraw Funds
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Referral Code Card */}
+        <Card className="overflow-hidden h-40">
+          <div className="h-full p-5 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Your Referral Code</span>
+              <Copy className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div>
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-lg px-3 py-2 font-mono text-lg font-bold tracking-widest text-center mb-2">
+                UTOPIA-2847X
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="w-full"
+                onClick={() => {
+                  navigator.clipboard.writeText("UTOPIA-2847X");
+                  toast({
+                    title: "Copied!",
+                    description: "Referral code copied to clipboard.",
+                  });
+                }}
+              >
+                Copy Code
+              </Button>
+            </div>
+          </div>
+        </Card>
       </div>
 
       {/* Network Visualization */}
