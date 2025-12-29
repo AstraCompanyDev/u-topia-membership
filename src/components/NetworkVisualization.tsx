@@ -76,7 +76,7 @@ export default function NetworkVisualization() {
           </div>
           
           {/* Level Stats - Right Column */}
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {networkLevels.map((level) => (
               <div
                 key={level.level}
