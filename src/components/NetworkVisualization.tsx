@@ -24,42 +24,53 @@ export default function NetworkVisualization() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* Concentric Circles Visualization - Left Column */}
           <div className="relative flex items-center justify-center py-6">
-            <div className="relative w-72 h-72">
+            <div className="relative w-80 h-80">
               {/* L5 - Outermost ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-muted-foreground/20" />
+              <div className="absolute inset-0 rounded-full border-2 border-muted-foreground/30" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <span className="bg-muted text-muted-foreground text-xs font-bold px-3 py-1.5 rounded-full border border-border shadow-sm">L5</span>
+              </div>
               
               {/* L4 */}
-              <div className="absolute inset-[1.75rem] rounded-full border-2 border-dashed border-muted-foreground/30" />
+              <div className="absolute inset-8 rounded-full border-2 border-muted-foreground/40" />
+              <div className="absolute top-6 right-3 translate-x-1/2">
+                <span className="bg-muted text-muted-foreground text-xs font-bold px-3 py-1.5 rounded-full border border-border shadow-sm">L4</span>
+              </div>
               
               {/* L3 - Active */}
-              <div className="absolute inset-[3.5rem] rounded-full border-2 border-amber-500/60 bg-amber-500/5" />
+              <div className="absolute inset-16 rounded-full border-[3px] border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]" />
+              <div className="absolute top-[3.5rem] right-0 translate-x-1/2">
+                <span className="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">L3</span>
+              </div>
               
               {/* L2 */}
-              <div className="absolute inset-[5.25rem] rounded-full border-2 border-amber-400/80 bg-amber-400/10" />
+              <div className="absolute inset-24 rounded-full border-[3px] border-amber-400" />
+              <div className="absolute top-[5.5rem] right-2 translate-x-1/2">
+                <span className="bg-amber-400 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">L2</span>
+              </div>
               
-              {/* L1 - Inner ring with golden highlight */}
-              <div className="absolute inset-[7rem] rounded-full border-2 border-amber-400 bg-amber-400/15" />
+              {/* L1 - Inner ring */}
+              <div className="absolute inset-32 rounded-full border-[3px] border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.4)]" />
+              <div className="absolute top-[7.5rem] right-4 translate-x-1/2">
+                <span className="bg-amber-400 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">L1</span>
+              </div>
               
               {/* YOU - Center */}
-              <div className="absolute inset-[8.5rem] rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/40">
-                <span className="text-white font-bold text-base">YOU</span>
+              <div className="absolute inset-[10rem] rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-xl shadow-amber-500/50">
+                <span className="text-white font-bold text-lg">YOU</span>
               </div>
               
-              {/* Level Labels - positioned around the circle */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-muted/80 backdrop-blur-sm text-muted-foreground text-xs font-semibold px-2.5 py-1 rounded-full border border-border">L5</span>
-              </div>
-              <div className="absolute top-[1.5rem] -right-2">
-                <span className="bg-muted/80 backdrop-blur-sm text-muted-foreground text-xs font-semibold px-2.5 py-1 rounded-full border border-border">L4</span>
-              </div>
-              <div className="absolute top-[3.25rem] -right-3">
-                <span className="bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">L3</span>
-              </div>
-              <div className="absolute top-[5rem] -right-2">
-                <span className="bg-amber-400 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">L2</span>
-              </div>
-              <div className="absolute top-[6.75rem] -right-1">
-                <span className="bg-amber-400 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">L1</span>
+              {/* User count labels - positioned clearly below center */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+                <span className="bg-card border-2 border-amber-400 text-foreground text-sm font-semibold px-4 py-1.5 rounded-full shadow-lg">
+                  12 users
+                </span>
+                <span className="bg-card border-2 border-amber-400/70 text-foreground text-sm font-semibold px-4 py-1.5 rounded-full shadow-lg">
+                  28 users
+                </span>
+                <span className="bg-card border-2 border-amber-500/60 text-foreground text-sm font-semibold px-4 py-1.5 rounded-full shadow-lg">
+                  45 users
+                </span>
               </div>
             </div>
           </div>
