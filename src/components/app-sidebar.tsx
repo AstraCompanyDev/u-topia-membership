@@ -4,7 +4,7 @@ import {
   MessageSquare,
   Users,
   Settings,
-  FileText,
+  Info,
   Search,
   ChevronRight,
   Building2,
@@ -30,7 +30,7 @@ const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
   { title: "Messages", url: "/messages", icon: MessageSquare },
   { title: "Network", url: "/members", icon: Users },
-  { title: "Documents", url: "/files", icon: FileText },
+  { title: "About U-topia", url: "/about", icon: Info },
   { title: "Upgrade", url: "/upgrade", icon: Gem },
 ];
 
