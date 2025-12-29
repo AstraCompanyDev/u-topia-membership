@@ -212,8 +212,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Network Visualization */}
-      <NetworkVisualization />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Latest News & Updates - Takes 2 columns */}

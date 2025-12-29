@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
-  { title: "Network", url: "/members", icon: Users },
+  { title: "My Network", url: "/members", icon: Users },
   { title: "About U-topia", url: "/about", icon: Info },
   { title: "Upgrade", url: "/upgrade", icon: Gem },
 ];
