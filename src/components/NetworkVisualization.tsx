@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MembershipBadge, membershipTiers, getCurrentUserTier } from "./MembershipBadge";
 
 interface NetworkLevel {
-  level: string;
+  level: number;
+  name: string;
   count: number;
   isActive: boolean;
   radius: number;
@@ -9,13 +11,19 @@ interface NetworkLevel {
   colorLight: string;
 }
 
-const networkLevels: NetworkLevel[] = [
-  { level: "L1", count: 12, isActive: true, radius: 55, color: "hsl(45, 93%, 47%)", colorLight: "rgba(234, 179, 8, 0.4)" },
-  { level: "L2", count: 28, isActive: true, radius: 85, color: "hsl(25, 95%, 53%)", colorLight: "rgba(249, 115, 22, 0.4)" },
-  { level: "L3", count: 45, isActive: true, radius: 115, color: "hsl(340, 82%, 52%)", colorLight: "rgba(236, 72, 153, 0.4)" },
-  { level: "L4", count: 0, isActive: false, radius: 145, color: "hsl(262, 83%, 58%)", colorLight: "rgba(139, 92, 246, 0.3)" },
-  { level: "L5", count: 0, isActive: false, radius: 175, color: "hsl(217, 91%, 60%)", colorLight: "rgba(59, 130, 246, 0.3)" },
-];
+// Map network levels to membership tiers
+const networkLevels: NetworkLevel[] = membershipTiers.map((tier, index) => ({
+  level: tier.level,
+  name: tier.name,
+  count: index < 3 ? [12, 28, 45][index] : 0,
+  isActive: index < 3,
+  radius: 55 + (index * 30),
+  color: tier.color,
+  colorLight: tier.colorLight,
+}));
+
+// User's current tier (would come from profile/database in real app)
+const currentUserTier = getCurrentUserTier(3); // Gold tier
 
 export default function NetworkVisualization() {
   const centerX = 190;
@@ -25,7 +33,13 @@ export default function NetworkVisualization() {
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">My Network</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">My Network</CardTitle>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Your Tier:</span>
+            <MembershipBadge tier={currentUserTier} size="md" />
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -49,9 +63,9 @@ export default function NetworkVisualization() {
                   {/* Level label - positioned on the right side of each ring */}
                   <g transform={`translate(${centerX + level.radius + 8}, ${centerY})`}>
                     <rect
-                      x="-16"
+                      x="-28"
                       y="-12"
-                      width="32"
+                      width="56"
                       height="24"
                       rx="12"
                       fill={level.isActive ? level.color : "hsl(var(--muted))"}
@@ -62,10 +76,10 @@ export default function NetworkVisualization() {
                       y="5"
                       textAnchor="middle"
                       fill="white"
-                      fontSize="11"
+                      fontSize="9"
                       fontWeight="bold"
                     >
-                      {level.level}
+                      {level.name}
                     </text>
                   </g>
                 </g>
@@ -133,36 +147,43 @@ export default function NetworkVisualization() {
           
           {/* Level Stats - Right Column */}
           <div className="grid grid-cols-2 gap-3">
-            {networkLevels.map((level) => (
-              <div
-                key={level.level}
-                className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg ${
-                  level.isActive
-                    ? "bg-primary/5 hover:bg-primary/10"
-                    : "bg-muted/50 border-border hover:bg-muted"
-                }`}
-                style={{ 
-                  borderColor: level.isActive ? level.color : undefined, 
-                  borderLeftWidth: level.isActive ? '4px' : undefined,
-                  boxShadow: level.isActive ? `0 0 0 0 ${level.colorLight}` : undefined,
-                }}
-                onMouseEnter={(e) => {
-                  if (level.isActive) {
-                    e.currentTarget.style.boxShadow = `0 8px 25px -5px ${level.colorLight}`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <span className="text-sm font-medium" style={{ color: level.isActive ? level.color : undefined }}>
-                  {level.level}
-                </span>
-                <p className={`text-2xl font-bold ${level.isActive ? "text-foreground" : "text-muted-foreground"}`}>
-                  {level.count}
-                </p>
-              </div>
-            ))}
+            {networkLevels.map((level) => {
+              const tier = membershipTiers.find(t => t.level === level.level);
+              return (
+                <div
+                  key={level.level}
+                  className={`flex flex-col p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg ${
+                    level.isActive
+                      ? "bg-primary/5 hover:bg-primary/10"
+                      : "bg-muted/50 border-border hover:bg-muted"
+                  }`}
+                  style={{ 
+                    borderColor: level.isActive ? level.color : undefined, 
+                    borderLeftWidth: level.isActive ? '4px' : undefined,
+                    boxShadow: level.isActive ? `0 0 0 0 ${level.colorLight}` : undefined,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (level.isActive) {
+                      e.currentTarget.style.boxShadow = `0 8px 25px -5px ${level.colorLight}`;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-lg">{tier?.icon}</span>
+                    <p className={`text-2xl font-bold ${level.isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                      {level.count}
+                    </p>
+                  </div>
+                  <span className="text-sm font-semibold" style={{ color: level.isActive ? level.color : undefined }}>
+                    {level.name}
+                  </span>
+                  <span className="text-xs text-muted-foreground">${tier?.price}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </CardContent>
