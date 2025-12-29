@@ -3,15 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Search, 
-  Target,
-  TrendingUp,
-  Award,
-  Clock,
-  MapPin,
-} from "lucide-react";
+import { Search } from "lucide-react";
+import NetworkVisualization from "@/components/NetworkVisualization";
 
 const members = [
   {
@@ -98,6 +91,9 @@ export default function Members() {
         <h1 className="text-3xl font-bold">Team Members</h1>
         <p className="text-muted-foreground">Connect and collaborate with fellow entrepreneurs</p>
       </div>
+
+      {/* Network Visualization */}
+      <NetworkVisualization />
 
       {/* Search and Filters */}
       <Card>
