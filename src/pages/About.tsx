@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import {
   Building2,
   CreditCard,
@@ -12,6 +13,7 @@ import {
   Users,
   ExternalLink,
 } from "lucide-react";
+import heroPeople from "@/assets/hero-people.jpg";
 
 const ecosystemFeatures = [
   {
@@ -49,20 +51,34 @@ const keyBenefits = [
 
 export default function About() {
   return (
-    <div className="max-w-4xl mx-auto space-y-12">
-      {/* Hero */}
-      <header className="text-center pt-4">
-        <h1 className="text-4xl font-bold tracking-tight mb-3">
-          A U-topia Built for <span className="text-primary">YOU</span>
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Reimagining money so you can spend, save, earn, and invest your way. 
-          The best of Web2 & Web3 — putting you first.
-        </p>
-      </header>
+    <div className="space-y-12">
+      {/* Hero Banner */}
+      <div className="relative overflow-hidden rounded-2xl h-72 md:h-80">
+        <img 
+          src={heroPeople} 
+          alt="U-topia community" 
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="relative h-full flex items-center px-8 md:px-12">
+          <div className="max-w-xl">
+            <Badge className="mb-4 bg-white/20 text-white border-white/30">
+              Financial Freedom
+            </Badge>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              A U-topia Built for <span className="text-primary">YOU</span>
+            </h1>
+            <p className="text-white/90 text-lg">
+              Reimagining money so you can spend, save, earn, and invest your way. 
+              The best of Web2 & Web3 — putting you first.
+            </p>
+          </div>
+        </div>
+      </div>
 
-      {/* Key Stats */}
-      <div className="grid grid-cols-4 gap-4 text-center">
+      <div className="max-w-4xl mx-auto space-y-12 px-4">
+        {/* Key Stats */}
+        <div className="grid grid-cols-4 gap-4 text-center">
         {[
           { value: "70%", label: "Fee Savings" },
           { value: "140M+", label: "Merchants" },
@@ -154,6 +170,7 @@ export default function About() {
           </Button>
         </div>
       </section>
+      </div>
     </div>
   );
 }
