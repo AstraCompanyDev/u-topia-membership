@@ -120,44 +120,47 @@ export default function About() {
 
         <Separator />
 
-        {/* Video */}
+        {/* Ecosystem + Video Combined Section */}
         <section>
-          <h2 className="text-lg font-semibold mb-4">Why We Built U-topia</h2>
-          <div className="aspect-video rounded-xl overflow-hidden border bg-muted">
-            <iframe
-              src="https://www.youtube.com/embed/wtK6RZoI_mQ"
-              title="Why We Built U-topia"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
-        </section>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left - Ecosystem */}
+            <div>
+              <h2 className="text-lg font-semibold mb-6">The Ecosystem</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {ecosystemFeatures.map((feature, index) => (
+                  <Card key={index} className="border-border/50 hover:border-primary/30 transition-colors">
+                    <CardContent className="p-5">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <feature.icon className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold">{feature.title}</h3>
+                          <p className="text-xs text-primary">{feature.tagline}</p>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
 
-        <Separator />
-
-        {/* Ecosystem */}
-        <section>
-          <h2 className="text-lg font-semibold mb-6">The Ecosystem</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {ecosystemFeatures.map((feature, index) => (
-              <Card key={index} className="border-border/50 hover:border-primary/30 transition-colors">
-                <CardContent className="p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <feature.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold">{feature.title}</h3>
-                      <p className="text-xs text-primary">{feature.tagline}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+            {/* Right - Video */}
+            <div>
+              <h2 className="text-lg font-semibold mb-6">Why We Built U-topia</h2>
+              <div className="aspect-video rounded-xl overflow-hidden border bg-muted">
+                <iframe
+                  src="https://www.youtube.com/embed/wtK6RZoI_mQ"
+                  title="Why We Built U-topia"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
           </div>
         </section>
 
