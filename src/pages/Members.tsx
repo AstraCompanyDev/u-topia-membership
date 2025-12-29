@@ -6,17 +6,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Search, 
-  UserPlus, 
-  MessageSquare, 
-  Calendar,
   Target,
   TrendingUp,
   Award,
   Clock,
   MapPin,
-  Mail,
-  Phone,
-  Linkedin
 } from "lucide-react";
 
 const members = [
@@ -100,15 +94,9 @@ const members = [
 export default function Members() {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Team Members</h1>
-          <p className="text-muted-foreground">Connect and collaborate with fellow entrepreneurs</p>
-        </div>
-        <Button className="bg-gradient-accent">
-          <UserPlus className="h-4 w-4 mr-2" />
-          Invite Member
-        </Button>
+      <div>
+        <h1 className="text-3xl font-bold">Team Members</h1>
+        <p className="text-muted-foreground">Connect and collaborate with fellow entrepreneurs</p>
       </div>
 
       {/* Search and Filters */}
@@ -189,17 +177,6 @@ export default function Members() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <MessageSquare className="h-4 w-4 mr-1" />
-                  Message
-                </Button>
-                <Button variant="outline" size="sm" className="flex-1">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  Meet
-                </Button>
-              </div>
             </CardContent>
           </Card>
         ))}
