@@ -10,17 +10,17 @@ interface NetworkLevel {
 }
 
 const networkLevels: NetworkLevel[] = [
-  { level: "L1", count: 12, isActive: true, radius: 65, color: "hsl(45, 93%, 47%)", colorLight: "rgba(234, 179, 8, 0.4)" },
-  { level: "L2", count: 28, isActive: true, radius: 90, color: "hsl(25, 95%, 53%)", colorLight: "rgba(249, 115, 22, 0.4)" },
+  { level: "L1", count: 12, isActive: true, radius: 55, color: "hsl(45, 93%, 47%)", colorLight: "rgba(234, 179, 8, 0.4)" },
+  { level: "L2", count: 28, isActive: true, radius: 85, color: "hsl(25, 95%, 53%)", colorLight: "rgba(249, 115, 22, 0.4)" },
   { level: "L3", count: 45, isActive: true, radius: 115, color: "hsl(340, 82%, 52%)", colorLight: "rgba(236, 72, 153, 0.4)" },
-  { level: "L4", count: 0, isActive: false, radius: 140, color: "hsl(262, 83%, 58%)", colorLight: "rgba(139, 92, 246, 0.3)" },
-  { level: "L5", count: 0, isActive: false, radius: 165, color: "hsl(217, 91%, 60%)", colorLight: "rgba(59, 130, 246, 0.3)" },
+  { level: "L4", count: 0, isActive: false, radius: 145, color: "hsl(262, 83%, 58%)", colorLight: "rgba(139, 92, 246, 0.3)" },
+  { level: "L5", count: 0, isActive: false, radius: 175, color: "hsl(217, 91%, 60%)", colorLight: "rgba(59, 130, 246, 0.3)" },
 ];
 
 export default function NetworkVisualization() {
-  const centerX = 180;
-  const centerY = 180;
-  const youRadius = 35;
+  const centerX = 190;
+  const centerY = 190;
+  const youRadius = 30;
 
   return (
     <Card className="overflow-hidden">
@@ -31,7 +31,7 @@ export default function NetworkVisualization() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           {/* SVG Concentric Circles Visualization */}
           <div className="flex items-center justify-center">
-            <svg width="360" height="360" viewBox="0 0 360 360" className="overflow-visible">
+            <svg width="380" height="380" viewBox="0 0 380 380" className="overflow-visible">
               {/* Concentric rings - render from outside in */}
               {[...networkLevels].reverse().map((level) => (
                 <g key={level.level}>
