@@ -6,7 +6,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import {
   TrendingUp,
-  Users,
   MessageSquare,
   Calendar,
   Newspaper,
@@ -16,7 +15,10 @@ import {
   Image,
   Copy,
   DollarSign,
+  Users,
 } from "lucide-react";
+import NetworkVisualization from "@/components/NetworkVisualization";
+import RecentActivity from "@/components/RecentActivity";
 import heroImage from "@/assets/hero-dashboard.jpg";
 import utopiaLifestyle from "@/assets/utopia-lifestyle.avif";
 import cardEarnings from "@/assets/card-portfolio.jpg";
@@ -199,7 +201,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Network Card */}
+        {/* My Network Card */}
         <div className="relative overflow-hidden rounded-xl h-40 group">
           <img 
             src={cardNetwork} 
@@ -209,16 +211,19 @@ export default function Dashboard() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
           <div className="relative h-full p-5 flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">Network</span>
+              <span className="text-sm font-medium text-white/90">My Network</span>
               <Users className="h-5 w-5 text-white/70" />
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">847</div>
-              <p className="text-sm text-white/80 mt-1">Fellow Shareholders</p>
+              <div className="text-3xl font-bold text-white">85</div>
+              <p className="text-sm text-white/80 mt-1">Total Connections</p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Network Visualization */}
+      <NetworkVisualization />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Latest News & Updates - Takes 2 columns */}
@@ -449,6 +454,9 @@ export default function Dashboard() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Recent Activity */}
+          <RecentActivity />
 
           {/* Upcoming Events */}
           <Card>
