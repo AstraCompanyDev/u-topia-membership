@@ -54,19 +54,15 @@ export function AppSidebar() {
         <div className="p-4 border-b">
           {!collapsed && (
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="relative h-8 w-8 rounded-lg overflow-hidden">
+              <div className="flex items-center gap-3">
+                <div className="relative h-10 w-28 overflow-hidden">
                   <img 
                     src={utopiaLogo} 
                     alt="U-topia" 
                     className="h-full w-full object-contain"
                   />
-                  <div className="absolute inset-0 bg-white/10 dark:bg-transparent pointer-events-none" />
                 </div>
-                <div>
-                  <h2 className="font-bold text-lg">U-topia</h2>
-                  <p className="text-xs text-muted-foreground">Shareholder Portal</p>
-                </div>
+                <p className="text-xs text-muted-foreground">Shareholder Portal</p>
               </div>
               <SidebarTrigger className="h-6 w-6" />
             </div>
