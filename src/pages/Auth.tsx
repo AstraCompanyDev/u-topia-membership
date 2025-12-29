@@ -92,13 +92,30 @@ export default function Auth() {
   };
 
   const handleDemoLogin = async () => {
-    const demoEmail = "demo@utopia.com";
     const demoPassword = "demo1234";
     const demoName = "Demo Member";
+    const storageKey = "utopia_demo_email";
+
+    const createDemoEmail = () => {
+      const id = typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID().slice(0, 8)
+        : String(Date.now());
+      return `demo+${id}@utopia.com`;
+    };
+
+    let demoEmail = localStorage.getItem(storageKey) || createDemoEmail();
+    localStorage.setItem(storageKey, demoEmail);
+
+    // Reflect credentials in the form so it's clear what's being used
+    setEmail(demoEmail);
+    setPassword(demoPassword);
 
     setLoading(true);
+    toast({
+      title: "Using demo account",
+      description: demoEmail,
+    });
 
-    // Helper to attempt sign-in with retries
     const trySignIn = async (retries = 3, delay = 500): Promise<boolean> => {
       for (let i = 0; i < retries; i++) {
         const { error } = await supabase.auth.signInWithPassword({
@@ -106,39 +123,41 @@ export default function Auth() {
           password: demoPassword,
         });
         if (!error) return true;
-        if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
+        if (i < retries - 1) await new Promise((r) => setTimeout(r, delay));
       }
       return false;
     };
 
-    // Try sign-in first
+    // Try sign-in first (existing demo user)
     if (await trySignIn(1, 0)) {
-      toast({
-        title: "Welcome back!",
-        description: "Signed in as Demo Member.",
-      });
+      toast({ title: "Welcome back!", description: "Signed in as Demo Member." });
       setLoading(false);
       return;
     }
 
-    // Account doesn't exist, create it
-    toast({
-      title: "Creating demo account...",
-      description: "Please wait a moment.",
-    });
+    toast({ title: "Creating demo account...", description: "Please wait a moment." });
 
-    const { error: signUpError } = await supabase.auth.signUp({
-      email: demoEmail,
-      password: demoPassword,
-      options: {
-        emailRedirectTo: `${window.location.origin}/`,
-        data: {
-          full_name: demoName,
+    const attemptSignUp = async () => {
+      return supabase.auth.signUp({
+        email: demoEmail,
+        password: demoPassword,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: { full_name: demoName },
         },
-      },
-    });
+      });
+    };
 
-    if (signUpError && !signUpError.message.includes("already registered")) {
+    let { error: signUpError } = await attemptSignUp();
+
+    // If the fixed demo email already exists (possibly with a different password), generate a fresh one.
+    if (signUpError && signUpError.message.toLowerCase().includes("already registered")) {
+      demoEmail = createDemoEmail();
+      localStorage.setItem(storageKey, demoEmail);
+      ({ error: signUpError } = await attemptSignUp());
+    }
+
+    if (signUpError) {
       toast({
         title: "Demo login failed",
         description: signUpError.message,
@@ -148,14 +167,10 @@ export default function Auth() {
       return;
     }
 
-    // Wait briefly then retry sign-in
-    await new Promise(r => setTimeout(r, 500));
-    
+    await new Promise((r) => setTimeout(r, 500));
+
     if (await trySignIn(3, 500)) {
-      toast({
-        title: "Welcome to U-topia!",
-        description: "Signed in as Demo Member.",
-      });
+      toast({ title: "Welcome to U-topia!", description: "Signed in as Demo Member." });
       setLoading(false);
       return;
     }
@@ -177,18 +192,24 @@ export default function Auth() {
           alt="U-topia Lifestyle"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
+
+        {/* Overlays for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent" />
+
         <div className="relative z-10 flex flex-col justify-end p-12 pb-20">
-          <div className="space-y-4">
-            <p className="text-primary text-sm font-medium tracking-wider uppercase">
-              Shareholder Portal
-            </p>
-            <h2 className="text-4xl font-bold text-foreground leading-tight">
-              A U-topia <span className="gradient-text">built for you</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-md">
-              Access your shareholder dashboard, track your investment, and connect with fellow investors.
-            </p>
+          <div className="max-w-xl rounded-2xl bg-background/20 backdrop-blur-md border border-border/30 p-8 shadow-sm">
+            <div className="space-y-4">
+              <p className="text-primary text-sm font-medium tracking-wider uppercase">
+                Shareholder Portal
+              </p>
+              <h2 className="text-4xl font-bold text-foreground leading-tight">
+                A U-topia <span className="gradient-text">built for you</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-md">
+                Access your shareholder dashboard, track your investment, and connect with fellow investors.
+              </p>
+            </div>
           </div>
         </div>
       </div>
