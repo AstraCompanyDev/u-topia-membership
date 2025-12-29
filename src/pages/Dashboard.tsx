@@ -117,12 +117,6 @@ export default function Dashboard() {
             <p className="text-lg text-white/90 mb-4">
               Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
             </p>
-            <div className="flex gap-3">
-              <Button className="bg-white text-black hover:bg-white/90" onClick={() => navigate("/about")}>
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Learn More
-              </Button>
-            </div>
           </div>
         </div>
       </div>
