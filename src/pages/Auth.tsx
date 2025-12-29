@@ -220,11 +220,14 @@ export default function Auth() {
           {/* Logo */}
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 mb-8">
-              <img 
-                src={utopiaLogo} 
-                alt="U-topia" 
-                className="h-10 dark:invert-0 invert"
-              />
+              <div className="relative h-10">
+                <img 
+                  src={utopiaLogo} 
+                  alt="U-topia" 
+                  className="h-full w-auto"
+                />
+                <div className="absolute inset-0 bg-white/10 dark:bg-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
 

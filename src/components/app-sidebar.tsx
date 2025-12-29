@@ -6,9 +6,9 @@ import {
   Info,
   Search,
   ChevronRight,
-  Building2,
   Gem,
 } from "lucide-react";
+import utopiaLogo from "@/assets/utopia-logo.avif";
 
 import {
   Sidebar,
@@ -55,8 +55,13 @@ export function AppSidebar() {
           {!collapsed && (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                  <Building2 className="h-4 w-4 text-white" />
+                <div className="relative h-8 w-8 rounded-lg overflow-hidden">
+                  <img 
+                    src={utopiaLogo} 
+                    alt="U-topia" 
+                    className="h-full w-full object-contain"
+                  />
+                  <div className="absolute inset-0 bg-white/10 dark:bg-transparent pointer-events-none" />
                 </div>
                 <div>
                   <h2 className="font-bold text-lg">U-topia</h2>
@@ -68,8 +73,13 @@ export function AppSidebar() {
           )}
           {collapsed && (
             <div className="flex flex-col items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-                <Building2 className="h-4 w-4 text-white" />
+              <div className="relative h-8 w-8 rounded-lg overflow-hidden">
+                <img 
+                  src={utopiaLogo} 
+                  alt="U-topia" 
+                  className="h-full w-full object-contain"
+                />
+                <div className="absolute inset-0 bg-white/10 dark:bg-transparent pointer-events-none" />
               </div>
               <SidebarTrigger className="h-6 w-6" />
             </div>
