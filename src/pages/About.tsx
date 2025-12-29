@@ -14,6 +14,23 @@ import {
   ExternalLink,
 } from "lucide-react";
 import heroPeople from "@/assets/hero-people.jpg";
+import team1 from "@/assets/team-1.avif";
+import team2 from "@/assets/team-2.avif";
+import team3 from "@/assets/team-3.avif";
+import team4 from "@/assets/team-4.avif";
+import team5 from "@/assets/team-5.avif";
+import team6 from "@/assets/team-6.avif";
+import team7 from "@/assets/team-7.avif";
+
+const teamMembers = [
+  { name: "Emmanuel Quezada", role: "CEO & Co-founder", image: team1 },
+  { name: "Sumeet Verma", role: "Chief Revenue Officer", image: team2 },
+  { name: "Dilsher Ahmed", role: "Chief Marketing Officer", image: team3 },
+  { name: "Michael Gord", role: "Strategic Advisor", image: team4 },
+  { name: "Josh Kriger", role: "Media Partner", image: team5 },
+  { name: "Owen Ma", role: "Operations Lead", image: team6 },
+  { name: "Sarah Chen", role: "Product Lead", image: team7 },
+];
 
 const ecosystemFeatures = [
   {
@@ -148,6 +165,28 @@ export default function About() {
               </div>
               <h4 className="font-medium text-sm">{benefit.title}</h4>
               <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Separator />
+
+      {/* Team */}
+      <section>
+        <h2 className="text-lg font-semibold mb-6">Leadership Team</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {teamMembers.map((member, index) => (
+            <div key={index} className="text-center group">
+              <div className="relative mb-3 overflow-hidden rounded-xl aspect-square">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <h4 className="font-medium text-sm">{member.name}</h4>
+              <p className="text-xs text-muted-foreground">{member.role}</p>
             </div>
           ))}
         </div>
