@@ -1,13 +1,14 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
-import { Bell, Search, Settings } from "lucide-react";
+import { Bell, Search, Settings, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ChatBot } from "@/components/ChatBot";
+import { useDemoMode } from "@/contexts/DemoContext";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { isDemoMode, exitDemoMode, demoUser } = useDemoMode();
 
   const notifications = [
     { id: 1, text: "Sarah Chen completed a goal", time: "2h ago", unread: true },
@@ -23,12 +25,44 @@ export default function Layout({ children }: LayoutProps) {
     { id: 3, text: "Weekly check-in starting soon", time: "1d ago", unread: true },
   ];
 
+  const handleExitDemo = () => {
+    exitDemoMode();
+    navigate("/auth");
+    toast({
+      title: "Demo mode ended",
+      description: "Sign in to access your account",
+    });
+  };
+
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         
         <div className="flex-1 flex flex-col min-w-0">
+          {/* Demo Mode Banner */}
+          {isDemoMode && (
+            <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30">
+                  Demo Mode
+                </Badge>
+                <span className="text-sm text-muted-foreground">
+                  You're viewing sample data. Sign in to access your account.
+                </span>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleExitDemo}
+                className="text-primary hover:text-primary/80"
+              >
+                <X className="h-4 w-4 mr-1" />
+                Exit Demo
+              </Button>
+            </div>
+          )}
+
           {/* Top Header */}
           <header className="h-16 border-b bg-card px-6 flex items-center justify-between shrink-0">
             <div className="flex items-center space-x-4">
@@ -105,11 +139,15 @@ export default function Layout({ children }: LayoutProps) {
               {/* User Profile */}
               <div className="flex items-center space-x-3 pl-3 border-l">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium">John Smith</p>
-                  <p className="text-xs text-muted-foreground">Founder</p>
+                  <p className="text-sm font-medium">
+                    {isDemoMode ? demoUser.full_name : "John Smith"}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {isDemoMode ? "Demo Account" : "Founder"}
+                  </p>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center text-white font-semibold cursor-pointer hover:scale-105 transition-transform">
-                  JS
+                  {isDemoMode ? "DU" : "JS"}
                 </div>
               </div>
             </div>

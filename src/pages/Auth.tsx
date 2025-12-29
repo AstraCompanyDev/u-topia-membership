@@ -7,9 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ArrowRight } from "lucide-react";
+import { Loader2, ArrowRight, Play } from "lucide-react";
 import utopiaLifestyle from "@/assets/utopia-lifestyle.avif";
 import utopiaLogo from "@/assets/utopia-logo.avif";
+
+const DEMO_STORAGE_KEY = "utopia_demo_mode";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -20,6 +22,12 @@ export default function Auth() {
   const [fullName, setFullName] = useState("");
 
   useEffect(() => {
+    // Check for demo mode
+    if (localStorage.getItem(DEMO_STORAGE_KEY) === "true") {
+      navigate("/");
+      return;
+    }
+
     // Check existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
@@ -36,6 +44,15 @@ export default function Auth() {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const handleEnterDemoMode = () => {
+    localStorage.setItem(DEMO_STORAGE_KEY, "true");
+    toast({
+      title: "Demo Mode Activated",
+      description: "Explore U-topia with sample data",
+    });
+    navigate("/");
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -299,14 +316,23 @@ export default function Auth() {
                       )}
                     </Button>
 
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-card px-2 text-muted-foreground">Or</span>
+                      </div>
+                    </div>
+
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full"
-                      onClick={handleDemoLogin}
-                      disabled={loading}
+                      className="w-full border-primary/50 text-primary hover:bg-primary/10"
+                      onClick={handleEnterDemoMode}
                     >
-                      Use demo account
+                      <Play className="mr-2 h-4 w-4" />
+                      Try Demo Mode
                     </Button>
                   </form>
                 </TabsContent>

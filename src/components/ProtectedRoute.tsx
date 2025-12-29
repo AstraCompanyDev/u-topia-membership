@@ -4,6 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { Loader2 } from "lucide-react";
 
+const DEMO_STORAGE_KEY = "utopia_demo_mode";
+
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
@@ -11,8 +13,18 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   useEffect(() => {
+    // Check for demo mode first
+    const demoMode = localStorage.getItem(DEMO_STORAGE_KEY) === "true";
+    setIsDemoMode(demoMode);
+
+    if (demoMode) {
+      setLoading(false);
+      return;
+    }
+
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -36,9 +48,10 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
+  // Allow access if in demo mode or authenticated
+  if (isDemoMode || user) {
+    return <>{children}</>;
   }
 
-  return <>{children}</>;
+  return <Navigate to="/auth" replace />;
 }
