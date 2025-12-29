@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ChatBot } from "@/components/ChatBot";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -119,6 +120,9 @@ export default function Layout({ children }: LayoutProps) {
             {children}
           </main>
         </div>
+        
+        {/* Chat Bot */}
+        <ChatBot />
       </div>
     </SidebarProvider>
   );
