@@ -1,15 +1,24 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import { 
-  Hash,
   Megaphone,
   FileText,
   Calendar,
   ExternalLink
 } from "lucide-react";
+
+// Thumbnails
+import thumbReport from "@/assets/thumb-report.jpg";
+import thumbFunding from "@/assets/thumb-funding.jpg";
+import thumbDefi from "@/assets/thumb-defi.jpg";
+import thumbWelcome from "@/assets/thumb-welcome.jpg";
+import thumbWhitepaper from "@/assets/thumb-whitepaper.jpg";
+import thumbBrand from "@/assets/thumb-brand.jpg";
+import thumbQa from "@/assets/thumb-qa.jpg";
+import thumbRoadmap from "@/assets/thumb-roadmap.jpg";
+import thumbMeeting from "@/assets/thumb-meeting.jpg";
 
 const channels = [
   { 
@@ -39,6 +48,7 @@ const channelContent: Record<string, Array<{
   date: string;
   type: "announcement" | "resource" | "event";
   link?: string;
+  thumbnail: string;
 }>> = {
   "announcements": [
     {
@@ -46,21 +56,24 @@ const channelContent: Record<string, Array<{
       title: "Q4 2024 Shareholder Report Released",
       content: "We are pleased to share our Q4 2024 performance report. Review our quarterly metrics, strategic initiatives, and roadmap for 2025.",
       date: "Dec 8, 2024",
-      type: "announcement"
+      type: "announcement",
+      thumbnail: thumbReport
     },
     {
       id: 2,
       title: "U-topia Secures Series B Funding",
       content: "We are thrilled to announce $50M in Series B funding to accelerate our mission of building the bank of the future.",
       date: "Dec 5, 2024",
-      type: "announcement"
+      type: "announcement",
+      thumbnail: thumbFunding
     },
     {
       id: 3,
       title: "New Digital Asset Features Coming Q1 2025",
       content: "Exciting new cryptocurrency integration and DeFi features are on the roadmap for early next year.",
       date: "Dec 2, 2024",
-      type: "announcement"
+      type: "announcement",
+      thumbnail: thumbDefi
     },
   ],
   "u-topia-materials": [
@@ -70,7 +83,8 @@ const channelContent: Record<string, Array<{
       content: "Everything you need to know as a U-topia shareholder. Includes governance, voting rights, and communication channels.",
       date: "Nov 15, 2024",
       type: "resource",
-      link: "#"
+      link: "#",
+      thumbnail: thumbWelcome
     },
     {
       id: 2,
@@ -78,7 +92,8 @@ const channelContent: Record<string, Array<{
       content: "Detailed breakdown of U-Coin utility, distribution, and ecosystem integration.",
       date: "Nov 10, 2024",
       type: "resource",
-      link: "#"
+      link: "#",
+      thumbnail: thumbWhitepaper
     },
     {
       id: 3,
@@ -86,7 +101,8 @@ const channelContent: Record<string, Array<{
       content: "Official U-topia logos, colors, and brand usage guidelines for shareholders and partners.",
       date: "Oct 28, 2024",
       type: "resource",
-      link: "#"
+      link: "#",
+      thumbnail: thumbBrand
     },
   ],
   "events-calendar": [
@@ -95,21 +111,24 @@ const channelContent: Record<string, Array<{
       title: "Shareholder Q&A Session",
       content: "Live Q&A with the leadership team. Submit your questions in advance.",
       date: "Dec 12, 2024 • 3:00 PM EST",
-      type: "event"
+      type: "event",
+      thumbnail: thumbQa
     },
     {
       id: 2,
       title: "Product Roadmap Preview",
       content: "Exclusive look at upcoming features and 2025 product strategy.",
       date: "Dec 18, 2024 • 10:00 AM EST",
-      type: "event"
+      type: "event",
+      thumbnail: thumbRoadmap
     },
     {
       id: 3,
       title: "Annual Shareholder Meeting",
       content: "Virtual annual meeting with voting on key proposals and board updates.",
       date: "Jan 15, 2025 • 2:00 PM EST",
-      type: "event"
+      type: "event",
+      thumbnail: thumbMeeting
     },
   ],
 };
@@ -122,7 +141,7 @@ export default function Messages() {
   return (
     <div className="h-[calc(100vh-2rem)] flex">
       {/* Channel List */}
-      <div className="w-72 border-r bg-card">
+      <div className="w-72 border-r bg-card flex-shrink-0">
         <div className="p-4 border-b">
           <h2 className="font-semibold">Channels</h2>
           <p className="text-xs text-muted-foreground">Stay informed with updates</p>
@@ -154,7 +173,7 @@ export default function Messages() {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
         <div className="p-4 border-b bg-card">
           <div className="flex items-center gap-3">
@@ -170,26 +189,35 @@ export default function Messages() {
         <ScrollArea className="flex-1 p-6">
           <div className="max-w-3xl mx-auto space-y-4">
             {content.map((item) => (
-              <Card key={item.id} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-5">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="text-xs">
-                          {item.type === "announcement" && "Announcement"}
-                          {item.type === "resource" && "Resource"}
-                          {item.type === "event" && "Event"}
-                        </Badge>
-                        <span className="text-xs text-muted-foreground">{item.date}</span>
-                      </div>
-                      <h3 className="font-semibold mb-2">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground">{item.content}</p>
-                    </div>
-                    {item.link && (
-                      <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                    )}
+              <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow group">
+                <div className="flex">
+                  {/* Thumbnail */}
+                  <div className="w-40 h-28 flex-shrink-0 overflow-hidden">
+                    <img 
+                      src={item.thumbnail} 
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                </CardContent>
+                  {/* Content */}
+                  <CardContent className="p-4 flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {item.type === "announcement" && "Announcement"}
+                        {item.type === "resource" && "Resource"}
+                        {item.type === "event" && "Event"}
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{item.date}</span>
+                    </div>
+                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
+                  </CardContent>
+                  {item.link && (
+                    <div className="p-4 flex items-center">
+                      <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  )}
+                </div>
               </Card>
             ))}
           </div>
