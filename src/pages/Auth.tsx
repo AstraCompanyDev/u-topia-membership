@@ -20,11 +20,21 @@ export default function Auth() {
   const [fullName, setFullName] = useState("");
 
   useEffect(() => {
+    // Check existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         navigate("/");
       }
     });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        navigate("/");
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -88,17 +98,34 @@ export default function Auth() {
 
     setLoading(true);
 
-    // Try sign-in first; if the account doesn't exist yet, create it and sign in.
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: demoEmail,
-      password: demoPassword,
-    });
+    // Helper to attempt sign-in with retries
+    const trySignIn = async (retries = 3, delay = 500): Promise<boolean> => {
+      for (let i = 0; i < retries; i++) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: demoEmail,
+          password: demoPassword,
+        });
+        if (!error) return true;
+        if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
+      }
+      return false;
+    };
 
-    if (!signInError) {
+    // Try sign-in first
+    if (await trySignIn(1, 0)) {
+      toast({
+        title: "Welcome back!",
+        description: "Signed in as Demo Member.",
+      });
       setLoading(false);
-      navigate("/");
       return;
     }
+
+    // Account doesn't exist, create it
+    toast({
+      title: "Creating demo account...",
+      description: "Please wait a moment.",
+    });
 
     const { error: signUpError } = await supabase.auth.signUp({
       email: demoEmail,
@@ -111,7 +138,7 @@ export default function Auth() {
       },
     });
 
-    if (signUpError) {
+    if (signUpError && !signUpError.message.includes("already registered")) {
       toast({
         title: "Demo login failed",
         description: signUpError.message,
@@ -121,28 +148,24 @@ export default function Auth() {
       return;
     }
 
-    const { error: signInAfterSignUpError } = await supabase.auth.signInWithPassword({
-      email: demoEmail,
-      password: demoPassword,
-    });
-
-    if (signInAfterSignUpError) {
+    // Wait briefly then retry sign-in
+    await new Promise(r => setTimeout(r, 500));
+    
+    if (await trySignIn(3, 500)) {
       toast({
-        title: "Demo login failed",
-        description: signInAfterSignUpError.message,
-        variant: "destructive",
+        title: "Welcome to U-topia!",
+        description: "Signed in as Demo Member.",
       });
       setLoading(false);
       return;
     }
 
     toast({
-      title: "Signed in as Demo Member",
-      description: "You can create your own account any time in Sign Up.",
+      title: "Demo login failed",
+      description: "Please try again in a moment.",
+      variant: "destructive",
     });
-
     setLoading(false);
-    navigate("/");
   };
 
   return (
