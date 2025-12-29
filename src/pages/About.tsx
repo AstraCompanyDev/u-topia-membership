@@ -5,7 +5,7 @@ import {
   Building2,
   CreditCard,
   Gift,
-  Coins,
+  TrendingUp,
   Shield,
   Zap,
   Globe,
@@ -22,7 +22,7 @@ import team7 from "@/assets/team-7.avif";
 import lifestyleUbank from "@/assets/lifestyle-ubank.jpg";
 import lifestyleUpay from "@/assets/lifestyle-upay.jpg";
 import lifestyleUearn from "@/assets/lifestyle-uearn.jpg";
-import lifestyleUcoin from "@/assets/lifestyle-ucoin.jpg";
+import lifestyleUshares from "@/assets/lifestyle-ucoin.jpg";
 
 const teamMembers = [
   { name: "Emmanuel Quezada", role: "Founder & Chief Executive Officer", image: team1 },
@@ -54,10 +54,10 @@ const ecosystemFeatures = [
     description: "Transform loyalty rewards into liquid, transferable digital assets.",
   },
   {
-    icon: Coins,
-    title: "uCoin",
-    tagline: "Native Utility",
-    description: "Powers fees, gasless operations, and settlements across the ecosystem.",
+    icon: TrendingUp,
+    title: "uShares",
+    tagline: "Equity Ownership",
+    description: "Own a piece of U-topia with tokenized equity shares.",
   },
 ];
 
@@ -65,7 +65,7 @@ const lifestyleCards = [
   { title: "uBank", subtitle: "Global Payments", description: "Borderless payments without high FX fees", icon: Building2, image: lifestyleUbank },
   { title: "uPay", subtitle: "70% Savings", description: "Use digital assets at 140M+ merchants", icon: CreditCard, image: lifestyleUpay },
   { title: "uEarn", subtitle: "Tokenized Rewards", description: "Transform loyalty rewards into digital assets", icon: Gift, image: lifestyleUearn },
-  { title: "uCoin", subtitle: "Native Utility", description: "Powers the entire U-topia ecosystem", icon: Coins, image: lifestyleUcoin },
+  { title: "uShares", subtitle: "Equity Ownership", description: "Own a piece of U-topia with tokenized shares", icon: TrendingUp, image: lifestyleUshares },
 ];
 
 const keyBenefits = [
