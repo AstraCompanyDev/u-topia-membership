@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,7 +10,6 @@ import {
   Zap,
   Globe,
   Users,
-  ExternalLink,
 } from "lucide-react";
 import heroAbout from "@/assets/hero-about.jpg";
 import team1 from "@/assets/team-1.avif";
@@ -64,10 +62,10 @@ const ecosystemFeatures = [
 ];
 
 const lifestyleCards = [
-  { title: "uBank", icon: Building2, image: lifestyleUbank },
-  { title: "uPay", icon: CreditCard, image: lifestyleUpay },
-  { title: "uEarn", icon: Gift, image: lifestyleUearn },
-  { title: "uCoin", icon: Coins, image: lifestyleUcoin },
+  { title: "uBank", subtitle: "Global Payments", description: "Borderless payments without high FX fees", icon: Building2, image: lifestyleUbank },
+  { title: "uPay", subtitle: "70% Savings", description: "Use digital assets at 140M+ merchants", icon: CreditCard, image: lifestyleUpay },
+  { title: "uEarn", subtitle: "Tokenized Rewards", description: "Transform loyalty rewards into digital assets", icon: Gift, image: lifestyleUearn },
+  { title: "uCoin", subtitle: "Native Utility", description: "Powers the entire U-topia ecosystem", icon: Coins, image: lifestyleUcoin },
 ];
 
 const keyBenefits = [
@@ -165,28 +163,42 @@ export default function About() {
 
         <Separator />
 
-        {/* Lifestyle Carousel - Why U-topia */}
+        {/* Why U-topia - Card Section with Hover Effect */}
         <section>
-          <h2 className="text-lg font-semibold mb-6">Why U-topia?</h2>
+          <h2 className="text-lg font-semibold mb-2">Why U-topia?</h2>
+          <p className="text-sm text-muted-foreground mb-6">Financial freedom in your pocket</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {lifestyleCards.map((card, index) => (
               <div 
                 key={index} 
                 className="relative overflow-hidden rounded-2xl aspect-[3/4] group cursor-pointer"
               >
+                {/* Background Image */}
                 <img 
                   src={card.image} 
                   alt={card.title}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <div className="flex items-center gap-2 text-white">
-                    <div className="h-8 w-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                      <card.icon className="h-4 w-4" />
-                    </div>
-                    <span className="font-semibold">{card.title}</span>
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 transition-opacity duration-300" />
+                
+                {/* Content - Bottom Aligned */}
+                <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
+                  {/* Icon */}
+                  <div className="h-10 w-10 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-3 border border-white/20 group-hover:bg-primary/80 group-hover:border-primary transition-all duration-300">
+                    <card.icon className="h-5 w-5 text-white" />
                   </div>
+                  
+                  {/* Title */}
+                  <h3 className="font-bold text-white text-lg mb-1">{card.title}</h3>
+                  
+                  {/* Subtitle */}
+                  <p className="text-primary text-xs font-medium mb-1">{card.subtitle}</p>
+                  
+                  {/* Description - Hidden by default, shown on hover */}
+                  <p className="text-white/80 text-xs leading-relaxed opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-20 transition-all duration-300 overflow-hidden">
+                    {card.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -195,17 +207,19 @@ export default function About() {
 
         <Separator />
 
-        {/* Benefits Grid */}
+        {/* Benefits Grid - 2x2 */}
         <section>
           <h2 className="text-lg font-semibold mb-6">Key Benefits</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {keyBenefits.map((benefit, index) => (
-              <div key={index} className="text-center p-4 rounded-xl bg-muted/30">
-                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <benefit.icon className="h-5 w-5 text-primary" />
+              <div key={index} className="flex items-center gap-4 p-5 rounded-xl bg-muted/30 border border-border/50 hover:border-primary/30 transition-colors">
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <benefit.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h4 className="font-medium text-sm">{benefit.title}</h4>
-                <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>
+                <div>
+                  <h4 className="font-semibold">{benefit.title}</h4>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -233,23 +247,6 @@ export default function About() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="text-center py-8 px-6 rounded-2xl bg-gradient-to-b from-primary/5 to-transparent border border-border/50">
-          <h3 className="text-xl font-semibold mb-2">Ready to Join?</h3>
-          <p className="text-sm text-muted-foreground mb-6">
-            Experience financial freedom in your pocket.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Button onClick={() => window.open("https://u-topia.com", "_blank")}>
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Visit U-topia
-            </Button>
-            <Button variant="outline" onClick={() => window.open("https://u-dex.com/stake/", "_blank")}>
-              <Coins className="h-4 w-4 mr-2" />
-              Start Earning
-            </Button>
-          </div>
-        </section>
       </div>
     </div>
   );
