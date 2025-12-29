@@ -118,13 +118,9 @@ export default function Dashboard() {
               Building the bank of the future, together. Access exclusive updates, connect with fellow shareholders, and shape our journey.
             </p>
             <div className="flex gap-3">
-              <Button className="bg-white text-black hover:bg-white/90" onClick={handleOpenMessages}>
-                <MessageSquare className="h-4 w-4 mr-2" />
-                Join Discussion
-              </Button>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/20">
+              <Button className="bg-white text-black hover:bg-white/90" onClick={() => navigate("/about")}>
                 <ExternalLink className="h-4 w-4 mr-2" />
-                Investor Portal
+                Learn More
               </Button>
             </div>
           </div>
