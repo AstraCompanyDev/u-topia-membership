@@ -81,6 +81,70 @@ export default function Auth() {
     setLoading(false);
   };
 
+  const handleDemoLogin = async () => {
+    const demoEmail = "demo@utopia.com";
+    const demoPassword = "demo1234";
+    const demoName = "Demo Member";
+
+    setLoading(true);
+
+    // Try sign-in first; if the account doesn't exist yet, create it and sign in.
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: demoEmail,
+      password: demoPassword,
+    });
+
+    if (!signInError) {
+      setLoading(false);
+      navigate("/");
+      return;
+    }
+
+    const { error: signUpError } = await supabase.auth.signUp({
+      email: demoEmail,
+      password: demoPassword,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          full_name: demoName,
+        },
+      },
+    });
+
+    if (signUpError) {
+      toast({
+        title: "Demo login failed",
+        description: signUpError.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    const { error: signInAfterSignUpError } = await supabase.auth.signInWithPassword({
+      email: demoEmail,
+      password: demoPassword,
+    });
+
+    if (signInAfterSignUpError) {
+      toast({
+        title: "Demo login failed",
+        description: signInAfterSignUpError.message,
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    toast({
+      title: "Signed in as Demo Member",
+      description: "You can create your own account any time in Sign Up.",
+    });
+
+    setLoading(false);
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left side - Image */}
@@ -186,6 +250,16 @@ export default function Auth() {
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </>
                       )}
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={handleDemoLogin}
+                      disabled={loading}
+                    >
+                      Use demo account
                     </Button>
                   </form>
                 </TabsContent>
