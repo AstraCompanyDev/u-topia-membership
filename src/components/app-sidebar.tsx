@@ -1,7 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Home,
-  MessageSquare,
   Users,
   Settings,
   Info,
@@ -28,7 +27,6 @@ import { Input } from "@/components/ui/input";
 
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
-  { title: "Messages", url: "/messages", icon: MessageSquare },
   { title: "Network", url: "/members", icon: Users },
   { title: "About U-topia", url: "/about", icon: Info },
   { title: "Upgrade", url: "/upgrade", icon: Gem },
@@ -36,9 +34,8 @@ const mainItems = [
 
 const channels = [
   { name: "announcements", unread: 2 },
-  { name: "general-discussion", unread: 0 },
-  { name: "investor-updates", unread: 5 },
-  { name: "product-feedback", unread: 1 },
+  { name: "u-topia-materials", unread: 0 },
+  { name: "events-calendar", unread: 1 },
 ];
 
 export function AppSidebar() {
