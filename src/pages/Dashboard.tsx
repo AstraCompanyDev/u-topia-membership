@@ -15,6 +15,8 @@ import {
   Building2,
   ArrowUpRight,
   Image,
+  Copy,
+  DollarSign,
 } from "lucide-react";
 import heroImage from "@/assets/hero-dashboard.jpg";
 import utopiaLifestyle from "@/assets/utopia-lifestyle.avif";
@@ -308,6 +310,62 @@ export default function Dashboard() {
 
         {/* Right Column */}
         <div className="space-y-6">
+          {/* Your Referral Code */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <Copy className="h-4 w-4" />
+                Your Referral Code
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 bg-muted rounded-lg px-4 py-3 font-mono text-lg font-semibold tracking-wider">
+                  UTOPIA-2847X
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="icon"
+                  onClick={() => {
+                    navigator.clipboard.writeText("UTOPIA-2847X");
+                    toast({
+                      title: "Copied!",
+                      description: "Referral code copied to clipboard.",
+                    });
+                  }}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Share this code to earn commissions on referrals
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Available to Withdraw */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <DollarSign className="h-4 w-4" />
+                Available to Withdraw
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-primary">$1,250.00</div>
+              <p className="text-sm text-muted-foreground mt-1">From referral commissions</p>
+              <Button className="w-full mt-4" onClick={() => {
+                toast({
+                  title: "Withdrawal Requested",
+                  description: "Your withdrawal request has been submitted.",
+                });
+              }}>
+                <Wallet className="h-4 w-4 mr-2" />
+                Withdraw Funds
+              </Button>
+            </CardContent>
+          </Card>
+
           {/* Your Connections */}
           <Card>
             <CardHeader>
