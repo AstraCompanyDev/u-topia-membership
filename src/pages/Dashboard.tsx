@@ -343,11 +343,11 @@ export default function Dashboard() {
               <p className="text-xs text-muted-foreground mb-4 text-center">
                 Share this code to earn commissions on referrals
               </p>
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="flex-1 gap-2 hover:bg-green-500/10 hover:border-green-500/30 hover:text-green-600"
+                  className="w-full sm:flex-1 gap-2 hover:bg-green-500/10 hover:border-green-500/30 hover:text-green-600"
                   onClick={() => {
                     window.open(`https://wa.me/?text=${encodeURIComponent("Join U-topia using my referral code: UTOPIA-2847X")}`, '_blank');
                   }}
@@ -360,7 +360,7 @@ export default function Dashboard() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="flex-1 gap-2 hover:bg-blue-500/10 hover:border-blue-500/30 hover:text-blue-500"
+                  className="w-full sm:flex-1 gap-2 hover:bg-blue-500/10 hover:border-blue-500/30 hover:text-blue-500"
                   onClick={() => {
                     window.open(`https://t.me/share/url?url=${encodeURIComponent("https://utopia.com")}&text=${encodeURIComponent("Join U-topia using my referral code: UTOPIA-2847X")}`, '_blank');
                   }}
@@ -373,7 +373,7 @@ export default function Dashboard() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="flex-1 gap-2 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500"
+                  className="w-full sm:flex-1 gap-2 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500"
                   onClick={() => {
                     window.open(`mailto:?subject=${encodeURIComponent("Join U-topia!")}&body=${encodeURIComponent("Join U-topia using my referral code: UTOPIA-2847X\n\nSign up at: https://utopia.com")}`, '_blank');
                   }}

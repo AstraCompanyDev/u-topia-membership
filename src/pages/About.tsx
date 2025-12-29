@@ -13,7 +13,7 @@ import {
   Users,
   ExternalLink,
 } from "lucide-react";
-import heroPeople from "@/assets/hero-people.jpg";
+import heroAbout from "@/assets/hero-about.jpg";
 import team1 from "@/assets/team-1.avif";
 import team2 from "@/assets/team-2.avif";
 import team3 from "@/assets/team-3.avif";
@@ -27,13 +27,13 @@ import lifestyleUearn from "@/assets/lifestyle-uearn.jpg";
 import lifestyleUcoin from "@/assets/lifestyle-ucoin.jpg";
 
 const teamMembers = [
-  { name: "Emmanuel Quezada", role: "CEO & Co-founder", image: team1 },
-  { name: "Sumeet Verma", role: "Chief Revenue Officer", image: team2 },
-  { name: "Dilsher Ahmed", role: "Chief Marketing Officer", image: team3 },
-  { name: "Michael Gord", role: "Strategic Advisor", image: team4 },
-  { name: "Josh Kriger", role: "Media Partner", image: team5 },
-  { name: "Owen Ma", role: "Operations Lead", image: team6 },
-  { name: "Sarah Chen", role: "Product Lead", image: team7 },
+  { name: "Emmanuel Quezada", role: "Founder & Chief Executive Officer", image: team1 },
+  { name: "Owen Man Cheong Ma", role: "Co-Founder & Chief Revenue Officer", image: team2 },
+  { name: "Maissa Ballout", role: "Chief Financial Officer", image: team3 },
+  { name: "Ian Stirling", role: "Chief Strategy Officer", image: team4 },
+  { name: "Danosch Zahedi", role: "Advisor", image: team5 },
+  { name: "Hitesh Mishra", role: "Advisor", image: team6 },
+  { name: "Alexia Chen", role: "Advisor", image: team7 },
 ];
 
 const ecosystemFeatures = [
@@ -83,8 +83,8 @@ export default function About() {
       {/* Hero Banner */}
       <div className="relative overflow-hidden rounded-2xl h-72 md:h-80">
         <img 
-          src={heroPeople} 
-          alt="U-topia community" 
+          src={heroAbout} 
+          alt="U-topia community"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
