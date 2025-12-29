@@ -5,14 +5,16 @@ interface NetworkLevel {
   count: number;
   isActive: boolean;
   radius: number;
+  color: string;
+  colorLight: string;
 }
 
 const networkLevels: NetworkLevel[] = [
-  { level: "L1", count: 12, isActive: true, radius: 65 },
-  { level: "L2", count: 28, isActive: true, radius: 90 },
-  { level: "L3", count: 45, isActive: true, radius: 115 },
-  { level: "L4", count: 0, isActive: false, radius: 140 },
-  { level: "L5", count: 0, isActive: false, radius: 165 },
+  { level: "L1", count: 12, isActive: true, radius: 65, color: "hsl(45, 93%, 47%)", colorLight: "rgba(234, 179, 8, 0.4)" },
+  { level: "L2", count: 28, isActive: true, radius: 90, color: "hsl(25, 95%, 53%)", colorLight: "rgba(249, 115, 22, 0.4)" },
+  { level: "L3", count: 45, isActive: true, radius: 115, color: "hsl(340, 82%, 52%)", colorLight: "rgba(236, 72, 153, 0.4)" },
+  { level: "L4", count: 0, isActive: false, radius: 140, color: "hsl(262, 83%, 58%)", colorLight: "rgba(139, 92, 246, 0.3)" },
+  { level: "L5", count: 0, isActive: false, radius: 165, color: "hsl(217, 91%, 60%)", colorLight: "rgba(59, 130, 246, 0.3)" },
 ];
 
 export default function NetworkVisualization() {
@@ -39,10 +41,10 @@ export default function NetworkVisualization() {
                     cy={centerY}
                     r={level.radius}
                     fill="none"
-                    stroke={level.isActive ? "hsl(38, 92%, 50%)" : "hsl(var(--muted-foreground))"}
+                    stroke={level.color}
                     strokeWidth={level.isActive ? 3 : 2}
-                    strokeOpacity={level.isActive ? 0.8 : 0.25}
-                    className={level.isActive ? "drop-shadow-[0_0_8px_rgba(245,158,11,0.4)]" : ""}
+                    strokeOpacity={level.isActive ? 0.9 : 0.35}
+                    style={{ filter: level.isActive ? `drop-shadow(0 0 8px ${level.colorLight})` : 'none' }}
                   />
                   {/* Level label - positioned on the right side of each ring */}
                   <g transform={`translate(${centerX + level.radius + 8}, ${centerY})`}>
@@ -52,14 +54,14 @@ export default function NetworkVisualization() {
                       width="32"
                       height="24"
                       rx="12"
-                      fill={level.isActive ? "hsl(38, 92%, 50%)" : "hsl(var(--muted))"}
-                      className={level.isActive ? "drop-shadow-md" : ""}
+                      fill={level.isActive ? level.color : "hsl(var(--muted))"}
+                      style={{ filter: level.isActive ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' : 'none' }}
                     />
                     <text
                       x="0"
                       y="5"
                       textAnchor="middle"
-                      fill={level.isActive ? "white" : "hsl(var(--muted-foreground))"}
+                      fill="white"
                       fontSize="11"
                       fontWeight="bold"
                     >
@@ -111,9 +113,8 @@ export default function NetworkVisualization() {
                     height="24"
                     rx="12"
                     fill="hsl(var(--card))"
-                    stroke="hsl(38, 92%, 50%)"
+                    stroke={level.color}
                     strokeWidth="2"
-                    strokeOpacity={1 - (index * 0.2)}
                   />
                   <text
                     x="0"
@@ -140,8 +141,9 @@ export default function NetworkVisualization() {
                     ? "bg-primary/5 border-primary/20"
                     : "bg-muted/50 border-border"
                 }`}
+                style={{ borderColor: level.isActive ? level.color : undefined, borderLeftWidth: level.isActive ? '4px' : undefined }}
               >
-                <span className={`text-sm font-medium ${level.isActive ? "text-primary" : "text-muted-foreground"}`}>
+                <span className="text-sm font-medium" style={{ color: level.isActive ? level.color : undefined }}>
                   {level.level}
                 </span>
                 <p className={`text-2xl font-bold ${level.isActive ? "text-foreground" : "text-muted-foreground"}`}>
