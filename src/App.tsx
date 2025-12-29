@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
+import Upgrade from "./pages/Upgrade";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/files" element={<ProtectedRoute><Layout><Files /></Layout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           <Route path="/contact" element={<ProtectedRoute><Layout><Contact /></Layout></ProtectedRoute>} />
+          <Route path="/upgrade" element={<ProtectedRoute><Layout><Upgrade /></Layout></ProtectedRoute>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

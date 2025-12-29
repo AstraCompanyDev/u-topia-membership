@@ -8,6 +8,7 @@ import {
   Search,
   ChevronRight,
   Building2,
+  Gem,
 } from "lucide-react";
 
 import {
@@ -30,6 +31,7 @@ const mainItems = [
   { title: "Messages", url: "/messages", icon: MessageSquare },
   { title: "Network", url: "/members", icon: Users },
   { title: "Documents", url: "/files", icon: FileText },
+  { title: "Upgrade", url: "/upgrade", icon: Gem },
 ];
 
 const channels = [
