@@ -136,12 +136,24 @@ export default function NetworkVisualization() {
             {networkLevels.map((level) => (
               <div
                 key={level.level}
-                className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
+                className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg ${
                   level.isActive
-                    ? "bg-primary/5 border-primary/20"
-                    : "bg-muted/50 border-border"
+                    ? "bg-primary/5 hover:bg-primary/10"
+                    : "bg-muted/50 border-border hover:bg-muted"
                 }`}
-                style={{ borderColor: level.isActive ? level.color : undefined, borderLeftWidth: level.isActive ? '4px' : undefined }}
+                style={{ 
+                  borderColor: level.isActive ? level.color : undefined, 
+                  borderLeftWidth: level.isActive ? '4px' : undefined,
+                  boxShadow: level.isActive ? `0 0 0 0 ${level.colorLight}` : undefined,
+                }}
+                onMouseEnter={(e) => {
+                  if (level.isActive) {
+                    e.currentTarget.style.boxShadow = `0 8px 25px -5px ${level.colorLight}`;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
                 <span className="text-sm font-medium" style={{ color: level.isActive ? level.color : undefined }}>
                   {level.level}
