@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
+import { format, isSameDay, parseISO } from "date-fns";
 import { 
   Megaphone,
   FileText,
   Calendar,
-  ExternalLink
+  ExternalLink,
+  Clock
 } from "lucide-react";
 
 // Thumbnails
@@ -46,6 +50,7 @@ const channelContent: Record<string, Array<{
   title: string;
   content: string;
   date: string;
+  time?: string;
   type: "announcement" | "resource" | "event";
   link?: string;
   thumbnail: string;
@@ -110,7 +115,8 @@ const channelContent: Record<string, Array<{
       id: 1,
       title: "Shareholder Q&A Session",
       content: "Live Q&A with the leadership team. Submit your questions in advance.",
-      date: "Dec 12, 2024 • 3:00 PM EST",
+      date: "2025-02-18",
+      time: "3:00 PM EST",
       type: "event",
       thumbnail: thumbQa
     },
@@ -118,7 +124,8 @@ const channelContent: Record<string, Array<{
       id: 2,
       title: "Product Roadmap Preview",
       content: "Exclusive look at upcoming features and 2025 product strategy.",
-      date: "Dec 18, 2024 • 10:00 AM EST",
+      date: "2025-02-24",
+      time: "10:00 AM EST",
       type: "event",
       thumbnail: thumbRoadmap
     },
@@ -126,7 +133,8 @@ const channelContent: Record<string, Array<{
       id: 3,
       title: "Annual Shareholder Meeting",
       content: "Virtual annual meeting with voting on key proposals and board updates.",
-      date: "Jan 15, 2025 • 2:00 PM EST",
+      date: "2025-03-15",
+      time: "2:00 PM EST",
       type: "event",
       thumbnail: thumbMeeting
     },
@@ -135,8 +143,16 @@ const channelContent: Record<string, Array<{
 
 export default function Messages() {
   const [selectedChannel, setSelectedChannel] = useState("announcements");
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const currentChannel = channels.find(c => c.id === selectedChannel);
   const content = channelContent[selectedChannel] || [];
+
+  const isEventsChannel = selectedChannel === "events-calendar";
+  const events = channelContent["events-calendar"] || [];
+  const eventDates = events.map(e => parseISO(e.date));
+  const selectedDayEvents = isEventsChannel && selectedDate
+    ? events.filter(e => isSameDay(parseISO(e.date), selectedDate))
+    : [];
 
   return (
     <div className="h-[calc(100vh-2rem)] flex">
@@ -187,40 +203,111 @@ export default function Messages() {
 
         {/* Content */}
         <ScrollArea className="flex-1 p-6">
-          <div className="max-w-3xl mx-auto space-y-4">
-            {content.map((item) => (
-              <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow group">
-                <div className="flex">
-                  {/* Thumbnail */}
-                  <div className="w-40 h-28 flex-shrink-0 overflow-hidden">
-                    <img 
-                      src={item.thumbnail} 
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          {isEventsChannel ? (
+            <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-6">
+              {/* Calendar */}
+              <div className="flex-shrink-0">
+                <Card>
+                  <CardContent className="p-4">
+                    <CalendarComponent
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      className="pointer-events-auto"
+                      modifiers={{ event: eventDates }}
+                      modifiersClassNames={{
+                        event: "bg-primary/20 text-primary font-bold rounded-md"
+                      }}
                     />
-                  </div>
-                  {/* Content */}
-                  <CardContent className="p-4 flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {item.type === "announcement" && "Announcement"}
-                        {item.type === "resource" && "Resource"}
-                        {item.type === "event" && "Event"}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">{item.date}</span>
-                    </div>
-                    <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
                   </CardContent>
-                  {item.link && (
-                    <div className="p-4 flex items-center">
-                      <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                </Card>
+              </div>
+
+              {/* Events for selected date + all upcoming */}
+              <div className="flex-1 space-y-4">
+                {selectedDate && selectedDayEvents.length > 0 ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-muted-foreground">
+                      Events on {format(selectedDate, "MMMM d, yyyy")}
+                    </h3>
+                    {selectedDayEvents.map((item) => (
+                      <Card key={item.id} className="overflow-hidden group">
+                        <div className="flex">
+                          <div className="w-32 h-24 flex-shrink-0 overflow-hidden">
+                            <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
+                          </div>
+                          <CardContent className="p-4 flex-1">
+                            <h3 className="font-semibold mb-1">{item.title}</h3>
+                            <div className="flex items-center gap-1 text-xs text-primary mb-2">
+                              <Clock className="h-3 w-3" />
+                              <span>{item.time}</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
+                          </CardContent>
+                        </div>
+                      </Card>
+                    ))}
+                  </>
+                ) : selectedDate ? (
+                  <p className="text-sm text-muted-foreground">No events on {format(selectedDate, "MMMM d, yyyy")}</p>
+                ) : null}
+
+                <h3 className="text-sm font-semibold text-muted-foreground pt-2">All Upcoming Events</h3>
+                {events.map((item) => (
+                  <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow group cursor-pointer"
+                    onClick={() => setSelectedDate(parseISO(item.date))}
+                  >
+                    <div className="flex">
+                      <div className="w-14 flex-shrink-0 flex flex-col items-center justify-center bg-primary/10 p-2">
+                        <span className="text-xs font-medium text-primary">{format(parseISO(item.date), "MMM")}</span>
+                        <span className="text-xl font-bold text-primary">{format(parseISO(item.date), "d")}</span>
+                      </div>
+                      <CardContent className="p-3 flex-1">
+                        <h3 className="font-semibold text-sm">{item.title}</h3>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3" />
+                          <span>{item.time}</span>
+                        </div>
+                      </CardContent>
                     </div>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="max-w-3xl mx-auto space-y-4">
+              {content.map((item) => (
+                <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow group">
+                  <div className="flex">
+                    <div className="w-40 h-28 flex-shrink-0 overflow-hidden">
+                      <img 
+                        src={item.thumbnail} 
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardContent className="p-4 flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {item.type === "announcement" && "Announcement"}
+                          {item.type === "resource" && "Resource"}
+                          {item.type === "event" && "Event"}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">{item.date}</span>
+                      </div>
+                      <h3 className="font-semibold mb-1 group-hover:text-primary transition-colors">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
+                    </CardContent>
+                    {item.link && (
+                      <div className="p-4 flex items-center">
+                        <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
         </ScrollArea>
       </div>
     </div>
