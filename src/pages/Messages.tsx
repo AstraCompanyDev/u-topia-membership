@@ -303,6 +303,41 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
           ))}
         </div>
       </div>
+
+      {/* Event Detail Dialog */}
+      <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+        <DialogContent className="sm:max-w-lg p-0 overflow-hidden">
+          {selectedEvent && (
+            <>
+              <div className="aspect-video w-full overflow-hidden">
+                <img src={selectedEvent.thumbnail} alt={selectedEvent.title} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6 space-y-4">
+                <DialogHeader>
+                  <DialogTitle className="text-xl">{selectedEvent.title}</DialogTitle>
+                  <DialogDescription className="sr-only">Event details</DialogDescription>
+                </DialogHeader>
+                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <CalendarDays className="h-4 w-4 text-primary" />
+                    <span>{format(parseISO(selectedEvent.date), "MMMM d, yyyy")}</span>
+                  </div>
+                  {selectedEvent.time && (
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="h-4 w-4 text-primary" />
+                      <span>{selectedEvent.time}</span>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{selectedEvent.content}</p>
+                <Button className="w-full" size="lg">
+                  Join Event
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
