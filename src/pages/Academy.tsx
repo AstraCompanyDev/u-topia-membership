@@ -2,7 +2,7 @@ import { useState } from "react";
 import { GraduationCap, Play, Clock, CheckCircle2, Lock, ChevronDown, ChevronRight, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -127,9 +127,6 @@ export default function Academy() {
 
   const filtered = filter === "all" ? modules : modules.filter((m) => m.category === filter);
 
-  const totalVideos = modules.flatMap((m) => m.videos).length;
-  const completedVideos = modules.flatMap((m) => m.videos).filter((v) => v.completed).length;
-  const overallProgress = Math.round((completedVideos / totalVideos) * 100);
 
   const toggleModule = (id: string) => {
     setOpenModules((prev) =>
@@ -137,10 +134,6 @@ export default function Academy() {
     );
   };
 
-  const getModuleProgress = (mod: Module) => {
-    const done = mod.videos.filter((v) => v.completed).length;
-    return Math.round((done / mod.videos.length) * 100);
-  };
 
   return (
     <div className="space-y-8">
@@ -158,15 +151,6 @@ export default function Academy() {
           </p>
         </div>
 
-        <Card className="w-full sm:w-72 border-border">
-          <CardContent className="p-4 flex items-center gap-4">
-            <div className="flex-1 space-y-1.5">
-              <p className="text-xs text-muted-foreground font-medium">Overall Progress</p>
-              <Progress value={overallProgress} className="h-2" />
-            </div>
-            <span className="text-lg font-bold text-foreground">{overallProgress}%</span>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Filters */}
@@ -186,17 +170,15 @@ export default function Academy() {
       {/* Modules */}
       <div className="space-y-4">
         {filtered.map((mod) => {
-          const isOpen = openModules.includes(mod.id);
-          const progress = getModuleProgress(mod);
 
           return (
-            <Collapsible key={mod.id} open={isOpen} onOpenChange={() => toggleModule(mod.id)}>
+            <Collapsible key={mod.id} open={openModules.includes(mod.id)} onOpenChange={() => toggleModule(mod.id)}>
               <Card className="border-border overflow-hidden">
                 <CollapsibleTrigger asChild>
                   <CardHeader className="cursor-pointer hover:bg-muted/30 transition-colors py-4 px-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3 min-w-0">
-                        {isOpen ? (
+                        {openModules.includes(mod.id) ? (
                           <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
                         ) : (
                           <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
@@ -211,14 +193,9 @@ export default function Academy() {
                           <p className="text-xs text-muted-foreground mt-1">{mod.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 shrink-0 ml-4">
-                        <span className="text-xs text-muted-foreground hidden sm:block">
+                      <span className="text-xs text-muted-foreground hidden sm:block">
                           {mod.videos.filter((v) => v.completed).length}/{mod.videos.length} lessons
                         </span>
-                        <div className="w-20 hidden sm:block">
-                          <Progress value={progress} className="h-1.5" />
-                        </div>
-                      </div>
                     </div>
                   </CardHeader>
                 </CollapsibleTrigger>
