@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format, isSameDay, parseISO, isAfter, startOfDay, isSameMonth } from "date-fns";
 import { 
@@ -10,7 +12,9 @@ import {
   FileText,
   Calendar,
   ExternalLink,
-  Clock
+  Clock,
+  CalendarDays,
+  MapPin
 } from "lucide-react";
 
 // Thumbnails
@@ -206,6 +210,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
     : [];
 
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
 
   const upcomingEvents = useMemo(() => {
     const today = startOfDay(new Date());
@@ -246,7 +251,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {selectedDayEvents.map((item) => (
-              <Card key={item.id} className="overflow-hidden border-primary/20">
+              <Card key={item.id} className="overflow-hidden border-primary/20 cursor-pointer hover:shadow-md transition-all" onClick={() => setSelectedEvent(item)}>
                 <div className="aspect-video overflow-hidden">
                   <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
                 </div>
@@ -276,8 +281,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
                 selectedDate && isSameDay(parseISO(item.date), selectedDate) && "ring-1 ring-primary/30"
               )}
               onClick={() => {
-                onSelectDate(parseISO(item.date));
-                setCalendarMonth(parseISO(item.date));
+                setSelectedEvent(item);
               }}
             >
               <div className="aspect-video overflow-hidden relative">
@@ -299,6 +303,41 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
           ))}
         </div>
       </div>
+
+      {/* Event Detail Dialog */}
+      <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+        <DialogContent className="sm:max-w-lg p-0 overflow-hidden">
+          {selectedEvent && (
+            <>
+              <div className="aspect-video w-full overflow-hidden">
+                <img src={selectedEvent.thumbnail} alt={selectedEvent.title} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6 space-y-4">
+                <DialogHeader>
+                  <DialogTitle className="text-xl">{selectedEvent.title}</DialogTitle>
+                  <DialogDescription className="sr-only">Event details</DialogDescription>
+                </DialogHeader>
+                <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <CalendarDays className="h-4 w-4 text-primary" />
+                    <span>{format(parseISO(selectedEvent.date), "MMMM d, yyyy")}</span>
+                  </div>
+                  {selectedEvent.time && (
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="h-4 w-4 text-primary" />
+                      <span>{selectedEvent.time}</span>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{selectedEvent.content}</p>
+                <Button className="w-full" size="lg">
+                  Join Event
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
