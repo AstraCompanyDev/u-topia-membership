@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import { format, isSameDay, parseISO } from "date-fns";
+import { format, isSameDay, parseISO, isAfter, startOfDay, isSameMonth } from "date-fns";
 import { 
   Megaphone,
   FileText,
