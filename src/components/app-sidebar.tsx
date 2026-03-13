@@ -6,6 +6,7 @@ import {
   Info,
   ChevronRight,
   Gem,
+  GraduationCap,
 } from "lucide-react";
 import utopiaLogo from "@/assets/utopia-logo.avif";
 
@@ -26,6 +27,7 @@ import { Button } from "@/components/ui/button";
 const mainItems = [
   { title: "Dashboard", url: "/", icon: Home },
   { title: "My Network", url: "/members", icon: Users },
+  { title: "Academy", url: "/academy", icon: GraduationCap },
   { title: "About U-topia", url: "/about", icon: Info },
   { title: "Upgrade", url: "/upgrade", icon: Gem },
 ];
