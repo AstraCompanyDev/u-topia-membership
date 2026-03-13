@@ -134,10 +134,6 @@ export default function Academy() {
     );
   };
 
-  const getModuleProgress = (mod: Module) => {
-    const done = mod.videos.filter((v) => v.completed).length;
-    return Math.round((done / mod.videos.length) * 100);
-  };
 
   return (
     <div className="space-y-8">
