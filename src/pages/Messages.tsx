@@ -210,6 +210,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
     : [];
 
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
+  const [selectedEvent, setSelectedEvent] = useState<typeof events[0] | null>(null);
 
   const upcomingEvents = useMemo(() => {
     const today = startOfDay(new Date());
