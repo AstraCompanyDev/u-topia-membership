@@ -6,6 +6,7 @@ import {
   Info,
   ChevronRight,
   Gem,
+  GraduationCap,
 } from "lucide-react";
 import utopiaLogo from "@/assets/utopia-logo.avif";
 
