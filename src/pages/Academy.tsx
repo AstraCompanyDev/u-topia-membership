@@ -158,15 +158,6 @@ export default function Academy() {
           </p>
         </div>
 
-        <Card className="w-full sm:w-72 border-border">
-          <CardContent className="p-4 flex items-center gap-4">
-            <div className="flex-1 space-y-1.5">
-              <p className="text-xs text-muted-foreground font-medium">Overall Progress</p>
-              <Progress value={overallProgress} className="h-2" />
-            </div>
-            <span className="text-lg font-bold text-foreground">{overallProgress}%</span>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Filters */}
