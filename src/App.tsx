@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import Upgrade from "./pages/Upgrade";
 import About from "./pages/About";
 import SearchPage from "./pages/Search";
+import Academy from "./pages/Academy";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
