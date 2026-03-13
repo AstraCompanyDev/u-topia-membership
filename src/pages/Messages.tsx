@@ -281,8 +281,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
                 selectedDate && isSameDay(parseISO(item.date), selectedDate) && "ring-1 ring-primary/30"
               )}
               onClick={() => {
-                onSelectDate(parseISO(item.date));
-                setCalendarMonth(parseISO(item.date));
+                setSelectedEvent(item);
               }}
             >
               <div className="aspect-video overflow-hidden relative">
