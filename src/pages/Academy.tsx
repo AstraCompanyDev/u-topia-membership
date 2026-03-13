@@ -193,14 +193,9 @@ export default function Academy() {
                           <p className="text-xs text-muted-foreground mt-1">{mod.description}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 shrink-0 ml-4">
-                        <span className="text-xs text-muted-foreground hidden sm:block">
+                      <span className="text-xs text-muted-foreground hidden sm:block">
                           {mod.videos.filter((v) => v.completed).length}/{mod.videos.length} lessons
                         </span>
-                        <div className="w-20 hidden sm:block">
-                          <Progress value={progress} className="h-1.5" />
-                        </div>
-                      </div>
                     </div>
                   </CardHeader>
                 </CollapsibleTrigger>
