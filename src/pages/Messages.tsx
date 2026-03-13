@@ -114,8 +114,8 @@ const channelContent: Record<string, Array<{
     {
       id: 1,
       title: "Shareholder Q&A Session",
-      content: "Live Q&A with the leadership team. Submit your questions in advance.",
-      date: "2025-02-18",
+      content: "Live Q&A with the leadership team. Submit your questions in advance via the portal.",
+      date: "2026-03-15",
       time: "3:00 PM EST",
       type: "event",
       thumbnail: thumbQa
@@ -123,8 +123,8 @@ const channelContent: Record<string, Array<{
     {
       id: 2,
       title: "Product Roadmap Preview",
-      content: "Exclusive look at upcoming features and 2025 product strategy.",
-      date: "2025-02-24",
+      content: "Exclusive look at upcoming features and 2026 product strategy.",
+      date: "2026-03-22",
       time: "10:00 AM EST",
       type: "event",
       thumbnail: thumbRoadmap
@@ -133,10 +133,64 @@ const channelContent: Record<string, Array<{
       id: 3,
       title: "Annual Shareholder Meeting",
       content: "Virtual annual meeting with voting on key proposals and board updates.",
-      date: "2025-03-15",
+      date: "2026-03-28",
       time: "2:00 PM EST",
       type: "event",
       thumbnail: thumbMeeting
+    },
+    {
+      id: 4,
+      title: "DeFi Integration Workshop",
+      content: "Hands-on workshop exploring our new DeFi tools and yield strategies.",
+      date: "2026-04-05",
+      time: "11:00 AM EST",
+      type: "event",
+      thumbnail: thumbDefi
+    },
+    {
+      id: 5,
+      title: "Q1 2026 Earnings Report",
+      content: "Review of financial performance, growth metrics, and investor outlook.",
+      date: "2026-04-12",
+      time: "9:00 AM EST",
+      type: "event",
+      thumbnail: thumbReport
+    },
+    {
+      id: 6,
+      title: "Community Town Hall",
+      content: "Open forum for shareholders to discuss platform direction and feedback.",
+      date: "2026-04-20",
+      time: "4:00 PM EST",
+      type: "event",
+      thumbnail: thumbWelcome
+    },
+    {
+      id: 7,
+      title: "Tokenomics Deep Dive",
+      content: "Detailed walkthrough of U-Coin distribution changes and staking updates.",
+      date: "2026-05-03",
+      time: "1:00 PM EST",
+      type: "event",
+      thumbnail: thumbWhitepaper
+    },
+    {
+      id: 8,
+      title: "Brand Partnership Announcement",
+      content: "Major collaboration reveal with a global fintech partner.",
+      date: "2026-05-15",
+      time: "12:00 PM EST",
+      type: "event",
+      thumbnail: thumbBrand
+    },
+    {
+      id: 9,
+      title: "Investor Networking Event",
+      content: "Virtual networking session connecting shareholders with the founding team.",
+      date: "2026-03-15",
+      time: "6:00 PM EST",
+      type: "event",
+      thumbnail: thumbFunding
     },
   ],
 };
