@@ -258,76 +258,11 @@ export default function Messages() {
         {/* Content */}
         <ScrollArea className="flex-1 p-6">
           {isEventsChannel ? (
-            <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-6">
-              {/* Calendar */}
-              <div className="flex-shrink-0">
-                <Card>
-                  <CardContent className="p-4">
-                    <CalendarComponent
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={setSelectedDate}
-                      className="pointer-events-auto"
-                      modifiers={{ event: eventDates }}
-                      modifiersClassNames={{
-                        event: "bg-primary/20 text-primary font-bold rounded-md"
-                      }}
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Events for selected date + all upcoming */}
-              <div className="flex-1 space-y-4">
-                {selectedDate && selectedDayEvents.length > 0 ? (
-                  <>
-                    <h3 className="text-sm font-semibold text-muted-foreground">
-                      Events on {format(selectedDate, "MMMM d, yyyy")}
-                    </h3>
-                    {selectedDayEvents.map((item) => (
-                      <Card key={item.id} className="overflow-hidden group">
-                        <div className="flex">
-                          <div className="w-32 h-24 flex-shrink-0 overflow-hidden">
-                            <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
-                          </div>
-                          <CardContent className="p-4 flex-1">
-                            <h3 className="font-semibold mb-1">{item.title}</h3>
-                            <div className="flex items-center gap-1 text-xs text-primary mb-2">
-                              <Clock className="h-3 w-3" />
-                              <span>{item.time}</span>
-                            </div>
-                            <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
-                          </CardContent>
-                        </div>
-                      </Card>
-                    ))}
-                  </>
-                ) : selectedDate ? (
-                  <p className="text-sm text-muted-foreground">No events on {format(selectedDate, "MMMM d, yyyy")}</p>
-                ) : null}
-
-                <h3 className="text-sm font-semibold text-muted-foreground pt-2">All Upcoming Events</h3>
-                {events.map((item) => (
-                  <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow group cursor-pointer"
-                    onClick={() => setSelectedDate(parseISO(item.date))}
-                  >
-                    <div className="flex">
-                      <div className="w-14 flex-shrink-0 flex flex-col items-center justify-center bg-primary/10 p-2">
-                        <span className="text-xs font-medium text-primary">{format(parseISO(item.date), "MMM")}</span>
-                        <span className="text-xl font-bold text-primary">{format(parseISO(item.date), "d")}</span>
-                      </div>
-                      <CardContent className="p-3 flex-1">
-                        <h3 className="font-semibold text-sm">{item.title}</h3>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          <span>{item.time}</span>
-                        </div>
-                      </CardContent>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
+            <EventsCalendarView
+              events={events}
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+            />
           ) : (
             <div className="max-w-3xl mx-auto space-y-4">
               {content.map((item) => (
