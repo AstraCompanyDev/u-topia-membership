@@ -127,9 +127,6 @@ export default function Academy() {
 
   const filtered = filter === "all" ? modules : modules.filter((m) => m.category === filter);
 
-  const totalVideos = modules.flatMap((m) => m.videos).length;
-  const completedVideos = modules.flatMap((m) => m.videos).filter((v) => v.completed).length;
-  const overallProgress = Math.round((completedVideos / totalVideos) * 100);
 
   const toggleModule = (id: string) => {
     setOpenModules((prev) =>
