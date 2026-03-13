@@ -251,7 +251,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {selectedDayEvents.map((item) => (
-              <Card key={item.id} className="overflow-hidden border-primary/20">
+              <Card key={item.id} className="overflow-hidden border-primary/20 cursor-pointer hover:shadow-md transition-all" onClick={() => setSelectedEvent(item)}>
                 <div className="aspect-video overflow-hidden">
                   <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
                 </div>
