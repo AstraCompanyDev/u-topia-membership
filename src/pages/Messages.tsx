@@ -345,7 +345,7 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
   );
 }
 
-
+export default function Messages() {
   const [selectedChannel, setSelectedChannel] = useState("announcements");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const currentChannel = channels.find(c => c.id === selectedChannel);
@@ -353,10 +353,6 @@ function EventsCalendarView({ events, selectedDate, onSelectDate }: {
 
   const isEventsChannel = selectedChannel === "events-calendar";
   const events = channelContent["events-calendar"] || [];
-  const eventDates = events.map(e => parseISO(e.date));
-  const selectedDayEvents = isEventsChannel && selectedDate
-    ? events.filter(e => isSameDay(parseISO(e.date), selectedDate))
-    : [];
 
   return (
     <div className="h-[calc(100vh-2rem)] flex">
