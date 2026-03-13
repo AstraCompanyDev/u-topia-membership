@@ -195,7 +195,157 @@ const channelContent: Record<string, Array<{
   ],
 };
 
-export default function Messages() {
+function EventsCalendarView({ events, selectedDate, onSelectDate }: {
+  events: typeof channelContent["events-calendar"];
+  selectedDate: Date | undefined;
+  onSelectDate: (date: Date | undefined) => void;
+}) {
+  const eventDates = events.map(e => parseISO(e.date));
+  const selectedDayEvents = selectedDate
+    ? events.filter(e => isSameDay(parseISO(e.date), selectedDate))
+    : [];
+
+  const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
+
+  const upcomingEvents = useMemo(() => {
+    const today = startOfDay(new Date());
+    return [...events]
+      .filter(e => isAfter(parseISO(e.date), today) || isSameDay(parseISO(e.date), today))
+      .sort((a, b) => parseISO(a.date).getTime() - parseISO(b.date).getTime());
+  }, [events]);
+
+  const eventsThisMonth = useMemo(() => {
+    return events.filter(e => isSameMonth(parseISO(e.date), calendarMonth));
+  }, [events, calendarMonth]);
+
+  return (
+    <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-6">
+      {/* Calendar */}
+      <div className="flex-shrink-0 space-y-4">
+        <Card>
+          <CardContent className="p-4">
+            <CalendarComponent
+              mode="single"
+              selected={selectedDate}
+              onSelect={onSelectDate}
+              month={calendarMonth}
+              onMonthChange={setCalendarMonth}
+              className={cn("p-3 pointer-events-auto")}
+              modifiers={{ event: eventDates }}
+              modifiersClassNames={{
+                event: "bg-primary/20 text-primary font-bold rounded-md"
+              }}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Events this month summary */}
+        <Card>
+          <CardContent className="p-4">
+            <h3 className="text-sm font-semibold text-foreground mb-3">
+              {format(calendarMonth, "MMMM yyyy")} — {eventsThisMonth.length} event{eventsThisMonth.length !== 1 ? "s" : ""}
+            </h3>
+            <div className="space-y-2">
+              {eventsThisMonth.length === 0 ? (
+                <p className="text-xs text-muted-foreground">No events this month</p>
+              ) : (
+                eventsThisMonth.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      onSelectDate(parseISO(item.date));
+                    }}
+                    className="w-full text-left flex items-center gap-2 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex flex-col items-center justify-center flex-shrink-0">
+                      <span className="text-[10px] font-medium text-primary leading-none">{format(parseISO(item.date), "MMM")}</span>
+                      <span className="text-sm font-bold text-primary leading-tight">{format(parseISO(item.date), "d")}</span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-medium truncate text-foreground">{item.title}</p>
+                      <p className="text-[10px] text-muted-foreground">{item.time}</p>
+                    </div>
+                  </button>
+                ))
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Right panel: selected day + upcoming */}
+      <div className="flex-1 space-y-5">
+        {/* Selected date events */}
+        {selectedDate && (
+          <div>
+            <h3 className="text-sm font-semibold text-muted-foreground mb-3">
+              {selectedDayEvents.length > 0
+                ? `Events on ${format(selectedDate, "MMMM d, yyyy")}`
+                : `No events on ${format(selectedDate, "MMMM d, yyyy")}`}
+            </h3>
+            {selectedDayEvents.map((item) => (
+              <Card key={item.id} className="overflow-hidden mb-3 border-primary/20">
+                <div className="flex">
+                  <div className="w-36 h-28 flex-shrink-0 overflow-hidden">
+                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover" />
+                  </div>
+                  <CardContent className="p-4 flex-1">
+                    <h3 className="font-semibold mb-1 text-foreground">{item.title}</h3>
+                    <div className="flex items-center gap-1 text-xs text-primary mb-2">
+                      <Clock className="h-3 w-3" />
+                      <span>{item.time}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{item.content}</p>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* All upcoming */}
+        <div>
+          <h3 className="text-sm font-semibold text-muted-foreground mb-3">Upcoming Events</h3>
+          <div className="space-y-3">
+            {upcomingEvents.map((item) => (
+              <Card
+                key={item.id}
+                className={cn(
+                  "overflow-hidden hover:shadow-md transition-all cursor-pointer group",
+                  selectedDate && isSameDay(parseISO(item.date), selectedDate) && "ring-1 ring-primary/30"
+                )}
+                onClick={() => {
+                  onSelectDate(parseISO(item.date));
+                  setCalendarMonth(parseISO(item.date));
+                }}
+              >
+                <div className="flex">
+                  <div className="w-20 h-20 flex-shrink-0 overflow-hidden">
+                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <div className="w-14 flex-shrink-0 flex flex-col items-center justify-center bg-primary/10">
+                    <span className="text-[10px] font-medium text-primary">{format(parseISO(item.date), "MMM")}</span>
+                    <span className="text-xl font-bold text-primary">{format(parseISO(item.date), "d")}</span>
+                  </div>
+                  <CardContent className="p-3 flex-1">
+                    <h3 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors">{item.title}</h3>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
+                      <Clock className="h-3 w-3" />
+                      <span>{item.time}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{item.content}</p>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
   const [selectedChannel, setSelectedChannel] = useState("announcements");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const currentChannel = channels.find(c => c.id === selectedChannel);
