@@ -172,7 +172,7 @@ export default function Academy() {
         {filtered.map((mod) => {
 
           return (
-            <Collapsible key={mod.id} open={isOpen} onOpenChange={() => toggleModule(mod.id)}>
+            <Collapsible key={mod.id} open={openModules.includes(mod.id)} onOpenChange={() => toggleModule(mod.id)}>
               <Card className="border-border overflow-hidden">
                 <CollapsibleTrigger asChild>
                   <CardHeader className="cursor-pointer hover:bg-muted/30 transition-colors py-4 px-5">
