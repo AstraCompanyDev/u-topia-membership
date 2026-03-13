@@ -178,7 +178,7 @@ export default function Academy() {
                   <CardHeader className="cursor-pointer hover:bg-muted/30 transition-colors py-4 px-5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3 min-w-0">
-                        {isOpen ? (
+                        {openModules.includes(mod.id) ? (
                           <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
                         ) : (
                           <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
