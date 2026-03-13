@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { format, isSameDay, parseISO, isAfter, startOfDay, isSameMonth } from "date-fns";
 import { 
@@ -10,7 +12,9 @@ import {
   FileText,
   Calendar,
   ExternalLink,
-  Clock
+  Clock,
+  CalendarDays,
+  MapPin
 } from "lucide-react";
 
 // Thumbnails
