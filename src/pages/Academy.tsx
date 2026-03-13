@@ -170,8 +170,6 @@ export default function Academy() {
       {/* Modules */}
       <div className="space-y-4">
         {filtered.map((mod) => {
-          const isOpen = openModules.includes(mod.id);
-          const progress = getModuleProgress(mod);
 
           return (
             <Collapsible key={mod.id} open={isOpen} onOpenChange={() => toggleModule(mod.id)}>
