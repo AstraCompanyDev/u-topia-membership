@@ -406,7 +406,7 @@ export default function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-primary">$1,250.00</div>
+              <div className="text-3xl font-bold text-primary">{balancesHidden ? "••••••" : "$1,250.00"}</div>
               <p className="text-sm text-muted-foreground mt-1">From referral commissions</p>
               <Button 
                 className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white" 
