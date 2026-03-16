@@ -84,6 +84,7 @@ const upcomingEvents = [
 export default function Dashboard() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [balancesHidden, setBalancesHidden] = useState(false);
 
   const handleViewAllConnections = () => {
     navigate("/members");
