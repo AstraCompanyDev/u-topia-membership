@@ -16,6 +16,8 @@ import {
   Copy,
   DollarSign,
   Users,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import NetworkVisualization from "@/components/NetworkVisualization";
 import RecentActivity from "@/components/RecentActivity";
