@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,8 @@ import {
   Copy,
   DollarSign,
   Users,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import NetworkVisualization from "@/components/NetworkVisualization";
 import RecentActivity from "@/components/RecentActivity";
@@ -82,6 +85,7 @@ const upcomingEvents = [
 export default function Dashboard() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [balancesHidden, setBalancesHidden] = useState(false);
 
   const handleViewAllConnections = () => {
     navigate("/members");
@@ -122,91 +126,104 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Total Earnings Card */}
-        <div className="relative overflow-hidden rounded-xl h-40 group">
-          <img 
-            src={cardEarnings} 
-            alt="Earnings background" 
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-          <div className="relative h-full p-5 flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">Total Earnings</span>
-              <DollarSign className="h-5 w-5 text-white/70" />
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white">$12,450</div>
-              <p className="text-sm text-white/80 flex items-center mt-1">
-                <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
-                <span className="text-emerald-400 font-medium">+8.2%</span>
-                <span className="ml-1">this month</span>
-              </p>
+      <div className="space-y-2">
+        <div className="flex justify-end">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground hover:text-foreground gap-1.5"
+            onClick={() => setBalancesHidden(!balancesHidden)}
+          >
+            {balancesHidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            {balancesHidden ? "Show Balances" : "Hide Balances"}
+          </Button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Total Earnings Card */}
+          <div className="relative overflow-hidden rounded-xl h-40 group">
+            <img 
+              src={cardEarnings} 
+              alt="Earnings background" 
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+            <div className="relative h-full p-5 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">Total Earnings</span>
+                <DollarSign className="h-5 w-5 text-white/70" />
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white">{balancesHidden ? "••••••" : "$12,450"}</div>
+                <p className="text-sm text-white/80 flex items-center mt-1">
+                  <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
+                  <span className="text-emerald-400 font-medium">{balancesHidden ? "••••" : "+8.2%"}</span>
+                  <span className="ml-1">this month</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Pending Card */}
-        <div className="relative overflow-hidden rounded-xl h-40 group">
-          <img 
-            src={cardPending} 
-            alt="Pending background" 
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-          <div className="relative h-full p-5 flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">Pending</span>
-              <Wallet className="h-5 w-5 text-white/70" />
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white">$2,180</div>
-              <p className="text-sm text-white/80 mt-1">Awaiting clearance</p>
+          {/* Pending Card */}
+          <div className="relative overflow-hidden rounded-xl h-40 group">
+            <img 
+              src={cardPending} 
+              alt="Pending background" 
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+            <div className="relative h-full p-5 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">Pending</span>
+                <Wallet className="h-5 w-5 text-white/70" />
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white">{balancesHidden ? "••••••" : "$2,180"}</div>
+                <p className="text-sm text-white/80 mt-1">Awaiting clearance</p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* $U Tokens Card */}
-        <div className="relative overflow-hidden rounded-xl h-40 group">
-          <img 
-            src={cardTokens} 
-            alt="Tokens background" 
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-          <div className="relative h-full p-5 flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">$U Tokens</span>
-              <TrendingUp className="h-5 w-5 text-white/70" />
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white">5,240</div>
-              <p className="text-sm text-white/80 flex items-center mt-1">
-                <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
-                <span className="text-emerald-400 font-medium">+15%</span>
-                <span className="ml-1">value</span>
-              </p>
+          {/* $U Tokens Card */}
+          <div className="relative overflow-hidden rounded-xl h-40 group">
+            <img 
+              src={cardTokens} 
+              alt="Tokens background" 
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+            <div className="relative h-full p-5 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">$U Tokens</span>
+                <TrendingUp className="h-5 w-5 text-white/70" />
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white">{balancesHidden ? "••••••" : "5,240"}</div>
+                <p className="text-sm text-white/80 flex items-center mt-1">
+                  <ArrowUpRight className="h-4 w-4 text-emerald-400 mr-1" />
+                  <span className="text-emerald-400 font-medium">{balancesHidden ? "••••" : "+15%"}</span>
+                  <span className="ml-1">value</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* My Network Card */}
-        <div className="relative overflow-hidden rounded-xl h-40 group">
-          <img 
-            src={cardNetwork} 
-            alt="Network background" 
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-          <div className="relative h-full p-5 flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-white/90">My Network</span>
-              <Users className="h-5 w-5 text-white/70" />
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white">85</div>
-              <p className="text-sm text-white/80 mt-1">Total Connections</p>
+          {/* My Network Card */}
+          <div className="relative overflow-hidden rounded-xl h-40 group">
+            <img 
+              src={cardNetwork} 
+              alt="Network background" 
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+            <div className="relative h-full p-5 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-white/90">My Network</span>
+                <Users className="h-5 w-5 text-white/70" />
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white">{balancesHidden ? "••••••" : "85"}</div>
+                <p className="text-sm text-white/80 mt-1">Total Connections</p>
+              </div>
             </div>
           </div>
         </div>
@@ -389,7 +406,7 @@ export default function Dashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-primary">$1,250.00</div>
+              <div className="text-3xl font-bold text-primary">{balancesHidden ? "••••••" : "$1,250.00"}</div>
               <p className="text-sm text-muted-foreground mt-1">From referral commissions</p>
               <Button 
                 className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white" 
