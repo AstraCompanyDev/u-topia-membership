@@ -12,6 +12,9 @@ import thumbReport from "@/assets/thumb-report.jpg";
 import thumbRoadmap from "@/assets/thumb-roadmap.jpg";
 import thumbWelcome from "@/assets/thumb-welcome.jpg";
 import thumbWhitepaper from "@/assets/thumb-whitepaper.jpg";
+import thumbFinBitcoin from "@/assets/thumb-fin-bitcoin.png";
+import thumbFinEthereum from "@/assets/thumb-fin-ethereum.png";
+import thumbFinXrp from "@/assets/thumb-fin-xrp.png";
 
 interface Video {
   id: string;
@@ -35,9 +38,9 @@ const modules: Module[] = [
   {
     id: "fin-101", title: "Finance Fundamentals", description: "Master the basics of personal and corporate finance.", category: "finance",
     videos: [
-      { id: "f1", title: "Introduction to Financial Markets", duration: "12:30", completed: true, locked: false, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f2", title: "Understanding Assets & Liabilities", duration: "18:45", completed: true, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f3", title: "Investment Strategies for Beginners", duration: "22:10", completed: false, locked: false, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f1", title: "Introduction to Financial Markets", duration: "12:30", completed: true, locked: false, thumbnail: thumbFinBitcoin, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f2", title: "Understanding Assets & Liabilities", duration: "18:45", completed: true, locked: false, thumbnail: thumbFinEthereum, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f3", title: "Investment Strategies for Beginners", duration: "22:10", completed: false, locked: false, thumbnail: thumbFinXrp, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f4", title: "Risk Management Essentials", duration: "15:20", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f8", title: "Compound Interest & Time Value", duration: "14:10", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f9", title: "Reading Financial Statements", duration: "20:35", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
