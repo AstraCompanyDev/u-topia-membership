@@ -106,7 +106,7 @@ function HeroCarousel({ onSelect }: { onSelect: (v: Video) => void }) {
   const current = items[active];
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
+    <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "3/1" }}>
       {items.map((item, i) => (
         <div
           key={item.module.id}
