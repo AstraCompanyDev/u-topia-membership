@@ -16,6 +16,7 @@ import thumbFinBitcoin from "@/assets/thumb-fin-bitcoin.png";
 import thumbFinEthereum from "@/assets/thumb-fin-ethereum.png";
 import thumbFinXrp from "@/assets/thumb-fin-xrp.png";
 import thumbUcenter from "@/assets/thumb-ucenter.png";
+import thumbBlockchainBasics from "@/assets/thumb-blockchain-basics.png";
 import thumbFinAvalanche from "@/assets/thumb-fin-avalanche.png";
 import thumbFinChainlink from "@/assets/thumb-fin-chainlink.png";
 import thumbFinUsdc from "@/assets/thumb-fin-usdc.png";
