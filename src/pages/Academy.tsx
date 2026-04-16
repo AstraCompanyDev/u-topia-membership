@@ -22,6 +22,7 @@ import thumbFinUsdc from "@/assets/thumb-fin-usdc.png";
 import thumbFinCardano from "@/assets/thumb-fin-cardano.png";
 import thumbFinSolana from "@/assets/thumb-fin-solana.png";
 import thumbFinBnb from "@/assets/thumb-fin-bnb.png";
+import thumbCryptoMastery from "@/assets/thumb-crypto-mastery.jpg";
 
 interface Video {
   id: string;
