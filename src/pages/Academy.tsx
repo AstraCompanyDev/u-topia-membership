@@ -16,6 +16,9 @@ import thumbFinBitcoin from "@/assets/thumb-fin-bitcoin.png";
 import thumbFinEthereum from "@/assets/thumb-fin-ethereum.png";
 import thumbFinXrp from "@/assets/thumb-fin-xrp.png";
 import thumbUcenter from "@/assets/thumb-ucenter.png";
+import thumbFinAvalanche from "@/assets/thumb-fin-avalanche.png";
+import thumbFinChainlink from "@/assets/thumb-fin-chainlink.png";
+import thumbFinUsdc from "@/assets/thumb-fin-usdc.png";
 
 interface Video {
   id: string;
@@ -42,9 +45,9 @@ const modules: Module[] = [
       { id: "f1", title: "Introduction to Financial Markets", duration: "12:30", completed: true, locked: false, thumbnail: thumbFinBitcoin, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f2", title: "Understanding Assets & Liabilities", duration: "18:45", completed: true, locked: false, thumbnail: thumbFinEthereum, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f3", title: "Investment Strategies for Beginners", duration: "22:10", completed: false, locked: false, thumbnail: thumbFinXrp, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f4", title: "Risk Management Essentials", duration: "15:20", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f8", title: "Compound Interest & Time Value", duration: "14:10", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f9", title: "Reading Financial Statements", duration: "20:35", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f4", title: "Risk Management Essentials", duration: "15:20", completed: false, locked: false, thumbnail: thumbFinAvalanche, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f8", title: "Compound Interest & Time Value", duration: "14:10", completed: false, locked: false, thumbnail: thumbFinChainlink, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f9", title: "Reading Financial Statements", duration: "20:35", completed: false, locked: false, thumbnail: thumbFinUsdc, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f10", title: "Budgeting & Cash Flow", duration: "16:50", completed: false, locked: true, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f11", title: "Tax Planning Basics", duration: "19:00", completed: false, locked: true, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
     ],
