@@ -278,9 +278,13 @@ export default function Academy() {
 
       {/* Module rows with vertical thumbnails */}
       <div className="space-y-6">
-        {filtered.map((mod) => (
-          <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
-        ))}
+        {filtered.map((mod) =>
+          mod.id === "fin-201" ? (
+            <PortfolioFeatureBlock key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+          ) : (
+            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+          )
+        )}
       </div>
 
       {/* Video Player Dialog */}
