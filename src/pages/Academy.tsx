@@ -110,7 +110,7 @@ const modules: Module[] = [
   {
     id: "cr-201", title: "Crypto Trading Mastery", description: "Technical analysis, chart patterns, and trading psychology for crypto markets.", category: "crypto",
     videos: [
-      { id: "c5", title: "Reading Candlestick Charts", duration: "20:00", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c5", title: "Reading Candlestick Charts", duration: "20:00", completed: false, locked: false, thumbnail: thumbCryptoMastery, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
       { id: "c6", title: "Support, Resistance & Trends", duration: "23:30", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
       { id: "c7", title: "Managing Emotions in Volatile Markets", duration: "16:50", completed: false, locked: false, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
       { id: "c12", title: "Order Types & Execution", duration: "14:20", completed: false, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
