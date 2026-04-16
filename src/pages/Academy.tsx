@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { GraduationCap, Play, Clock, CheckCircle2, Lock, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { GraduationCap, Play, Clock, CheckCircle2, Lock, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -111,6 +111,75 @@ const categories = [
   { key: "crypto" as const, label: "Crypto" },
 ];
 
+// Featured / highlighted items for the hero section
+const featured = [
+  { module: modules[0], video: modules[0].videos[0], size: "large" as const },
+  { module: modules[2], video: modules[2].videos[0], size: "small" as const },
+  { module: modules[4], video: modules[4].videos[0], size: "small" as const },
+  { module: modules[3], video: modules[3].videos[0], size: "small" as const },
+  { module: modules[5], video: modules[5].videos[0], size: "small" as const },
+];
+
+function HeroSection({ onSelect }: { onSelect: (v: Video) => void }) {
+  const main = featured[0];
+  const side = featured.slice(1);
+
+  return (
+    <div className="rounded-xl overflow-hidden">
+      <div className="flex gap-2 h-[320px]">
+        {/* Large featured card */}
+        <button
+          onClick={() => onSelect(main.video)}
+          className="group relative flex-shrink-0 w-[45%] h-full overflow-hidden rounded-xl cursor-pointer"
+        >
+          <img src={main.video.thumbnail} alt={main.video.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          {/* Play on hover */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="h-14 w-14 rounded-full bg-primary/90 flex items-center justify-center shadow-xl">
+              <Play className="h-6 w-6 text-primary-foreground ml-0.5" />
+            </div>
+          </div>
+          {/* Info */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 text-left">
+            <Badge className="bg-accent text-accent-foreground mb-2 text-[10px]">FEATURED</Badge>
+            <h3 className="text-xl font-bold text-white leading-tight">{main.module.title}</h3>
+            <p className="text-white/60 text-xs mt-1.5 flex items-center gap-2">
+              <span>{main.module.category === "crypto" ? "Cryptocurrency" : main.module.category === "blockchain" ? "Blockchain" : "Finance"}</span>
+              <span>•</span>
+              <span>{main.module.videos.length} lessons</span>
+            </p>
+            <p className="text-white/50 text-xs mt-2 line-clamp-2 max-w-md">{main.module.description}</p>
+          </div>
+        </button>
+
+        {/* Side cards grid */}
+        <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-2 min-w-0">
+          {side.map((item, i) => (
+            <button
+              key={item.video.id}
+              onClick={() => onSelect(item.video)}
+              className="group relative overflow-hidden rounded-xl cursor-pointer"
+            >
+              <img src={item.video.thumbnail} alt={item.video.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="h-10 w-10 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
+                  <Play className="h-4 w-4 text-primary-foreground ml-0.5" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-3 text-left">
+                <p className="text-sm font-semibold text-white leading-tight line-clamp-1">{item.module.title}</p>
+                <p className="text-white/50 text-[10px] mt-0.5">{item.module.videos.length} lessons</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -136,7 +205,7 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
 
       <div
         ref={scrollRef}
-        className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1"
+        className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {mod.videos.map((video) => (
@@ -148,17 +217,9 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
               ${video.locked ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:scale-105 hover:z-10 hover:shadow-xl hover:shadow-black/20"}
             `}
           >
-            {/* Thumbnail */}
             <div className="relative aspect-video bg-muted overflow-hidden rounded-lg">
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className="w-full h-full object-cover"
-              />
-              {/* Gradient overlay */}
+              <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-              {/* Play button on hover */}
               {!video.locked && (
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   <div className="h-11 w-11 rounded-full bg-primary flex items-center justify-center shadow-lg">
@@ -166,27 +227,19 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
                   </div>
                 </div>
               )}
-
-              {/* Completed badge */}
               {video.completed && (
                 <div className="absolute top-2 right-2">
                   <CheckCircle2 className="h-5 w-5 text-accent drop-shadow-md" />
                 </div>
               )}
-
-              {/* Lock overlay */}
               {video.locked && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Lock className="h-6 w-6 text-muted-foreground" />
                 </div>
               )}
-
-              {/* Duration */}
               <div className="absolute bottom-8 right-2 bg-black/70 text-white text-[10px] font-medium px-1.5 py-0.5 rounded">
                 {video.duration}
               </div>
-
-              {/* Title inside thumbnail */}
               <div className="absolute bottom-0 left-0 right-0 p-2">
                 <p className="text-xs font-medium text-white leading-tight line-clamp-2 drop-shadow-md">
                   {video.title}
@@ -220,7 +273,6 @@ export default function Academy() {
           </div>
         </div>
 
-        {/* Filter pills */}
         <div className="flex gap-1.5 bg-muted/50 rounded-full p-1">
           {categories.map((cat) => (
             <button
@@ -238,6 +290,9 @@ export default function Academy() {
           ))}
         </div>
       </div>
+
+      {/* Hero highlight section */}
+      <HeroSection onSelect={setSelectedVideo} />
 
       {/* Module rows */}
       <div className="space-y-6">
