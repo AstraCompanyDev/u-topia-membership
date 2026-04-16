@@ -39,6 +39,10 @@ const modules: Module[] = [
       { id: "f2", title: "Understanding Assets & Liabilities", duration: "18:45", completed: true, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f3", title: "Investment Strategies for Beginners", duration: "22:10", completed: false, locked: false, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f4", title: "Risk Management Essentials", duration: "15:20", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f8", title: "Compound Interest & Time Value", duration: "14:10", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f9", title: "Reading Financial Statements", duration: "20:35", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f10", title: "Budgeting & Cash Flow", duration: "16:50", completed: false, locked: true, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f11", title: "Tax Planning Basics", duration: "19:00", completed: false, locked: true, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
     ],
   },
   {
@@ -46,7 +50,11 @@ const modules: Module[] = [
     videos: [
       { id: "f5", title: "Modern Portfolio Theory", duration: "25:00", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f6", title: "Asset Allocation Strategies", duration: "19:30", completed: false, locked: false, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
-      { id: "f7", title: "Technical vs Fundamental Analysis", duration: "28:15", completed: false, locked: true, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f7", title: "Technical vs Fundamental Analysis", duration: "28:15", completed: false, locked: false, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f12", title: "Hedge Fund Strategies", duration: "24:40", completed: false, locked: false, thumbnail: thumbWhitepaper, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f13", title: "Options & Derivatives", duration: "30:15", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f14", title: "REITs & Alternative Assets", duration: "21:20", completed: false, locked: true, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
+      { id: "f15", title: "Retirement Planning", duration: "17:45", completed: false, locked: true, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
     ],
   },
   {
@@ -55,15 +63,23 @@ const modules: Module[] = [
       { id: "b1", title: "What is Blockchain?", duration: "14:00", completed: true, locked: false, thumbnail: thumbWhitepaper, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
       { id: "b2", title: "Consensus Mechanisms Explained", duration: "20:30", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
       { id: "b3", title: "Smart Contracts & dApps", duration: "24:45", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
-      { id: "b4", title: "Layer 1 vs Layer 2 Solutions", duration: "17:50", completed: false, locked: true, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b4", title: "Layer 1 vs Layer 2 Solutions", duration: "17:50", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b8", title: "Cryptographic Hash Functions", duration: "15:30", completed: false, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b9", title: "Merkle Trees & Data Integrity", duration: "18:20", completed: false, locked: false, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b10", title: "Public vs Private Blockchains", duration: "13:45", completed: false, locked: true, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b11", title: "Blockchain Scalability Trilemma", duration: "22:10", completed: false, locked: true, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
     ],
   },
   {
     id: "bc-201", title: "DeFi Deep Dive", description: "Explore the world of decentralized finance protocols and yield strategies.", category: "blockchain",
     videos: [
       { id: "b5", title: "Introduction to DeFi", duration: "16:20", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
-      { id: "b6", title: "Liquidity Pools & AMMs", duration: "21:40", completed: false, locked: true, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
-      { id: "b7", title: "Yield Farming Strategies", duration: "26:10", completed: false, locked: true, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b6", title: "Liquidity Pools & AMMs", duration: "21:40", completed: false, locked: false, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b7", title: "Yield Farming Strategies", duration: "26:10", completed: false, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b12", title: "Lending & Borrowing Protocols", duration: "19:50", completed: false, locked: false, thumbnail: thumbWhitepaper, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b13", title: "Stablecoin Mechanisms", duration: "17:30", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b14", title: "Cross-Chain Bridges", duration: "23:15", completed: false, locked: true, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b15", title: "DeFi Security & Audits", duration: "20:00", completed: false, locked: true, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
     ],
   },
   {
@@ -73,18 +89,26 @@ const modules: Module[] = [
       { id: "c2", title: "Ethereum & the EVM Ecosystem", duration: "22:30", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
       { id: "c3", title: "Altcoins, Tokens & Stablecoins", duration: "19:15", completed: false, locked: false, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
       { id: "c4", title: "Crypto Wallets & Security", duration: "15:45", completed: false, locked: false, thumbnail: thumbQa, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c8", title: "Mining vs Staking", duration: "20:10", completed: false, locked: false, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c9", title: "NFTs & Digital Ownership", duration: "17:35", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c10", title: "Crypto Regulations Worldwide", duration: "24:00", completed: false, locked: true, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c11", title: "Tokenomics Explained", duration: "21:45", completed: false, locked: true, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
     ],
   },
   {
     id: "cr-201", title: "Crypto Trading Mastery", description: "Technical analysis, chart patterns, and trading psychology for crypto markets.", category: "crypto",
     videos: [
       { id: "c5", title: "Reading Candlestick Charts", duration: "20:00", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
-      { id: "c6", title: "Support, Resistance & Trends", duration: "23:30", completed: false, locked: true, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
-      { id: "c7", title: "Managing Emotions in Volatile Markets", duration: "16:50", completed: false, locked: true, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c6", title: "Support, Resistance & Trends", duration: "23:30", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c7", title: "Managing Emotions in Volatile Markets", duration: "16:50", completed: false, locked: false, thumbnail: thumbWelcome, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c12", title: "Order Types & Execution", duration: "14:20", completed: false, locked: false, thumbnail: thumbReport, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c13", title: "Volume & Market Depth", duration: "18:55", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c14", title: "Fibonacci & Elliott Waves", duration: "27:30", completed: false, locked: true, thumbnail: thumbWhitepaper, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c15", title: "Building a Trading Plan", duration: "22:15", completed: false, locked: true, thumbnail: thumbFunding, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
+      { id: "c16", title: "Risk-Reward Ratios", duration: "15:40", completed: false, locked: true, thumbnail: thumbMeeting, videoUrl: "https://www.youtube.com/embed/rYQgy8QDEBI" },
     ],
   },
 ];
-
 const categories = [
   { key: "all" as const, label: "All" },
   { key: "finance" as const, label: "Finance" },
@@ -106,7 +130,7 @@ function HeroCarousel({ onSelect }: { onSelect: (v: Video) => void }) {
   const current = items[active];
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
+    <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "3/1" }}>
       {items.map((item, i) => (
         <div
           key={item.module.id}
@@ -181,7 +205,7 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
             key={video.id}
             disabled={video.locked}
             onClick={() => !video.locked && onSelect(video)}
-            className={`group relative flex-shrink-0 w-[150px] transition-all duration-300
+            className={`group relative flex-shrink-0 w-[185px] transition-all duration-300
               ${video.locked ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:scale-105 hover:z-10"}
             `}
           >
