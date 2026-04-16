@@ -260,18 +260,6 @@ export default function Academy() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <GraduationCap className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">Academy</h1>
-            <p className="text-muted-foreground text-xs">Learn Finance, Blockchain & Crypto</p>
-          </div>
-        </div>
-      </div>
 
       {/* Auto-scrolling hero */}
       <HeroCarousel onSelect={setSelectedVideo} />
