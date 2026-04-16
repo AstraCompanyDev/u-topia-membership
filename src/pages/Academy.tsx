@@ -324,7 +324,7 @@ export default function Academy() {
           mod.id === "fin-201" ? (
             <PortfolioFeatureBlock key={mod.id} mod={mod} onSelect={setSelectedVideo} />
           ) : (
-            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} horizontal={mod.category === "blockchain" || mod.category === "crypto"} />
           )
         )}
       </div>
