@@ -218,7 +218,7 @@ function ModuleRow({ mod, onSelect, horizontal = false }: { mod: Module; onSelec
             key={video.id}
             disabled={video.locked}
             onClick={() => !video.locked && onSelect(video)}
-            className={`group relative flex-shrink-0 ${horizontal ? "w-[380px]" : "w-[220px]"} transition-all duration-300
+            className={`group relative flex-shrink-0 ${horizontal ? "w-[418px]" : "w-[220px]"} transition-all duration-300
               ${video.locked ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:scale-105 hover:z-10"}
             `}
           >
