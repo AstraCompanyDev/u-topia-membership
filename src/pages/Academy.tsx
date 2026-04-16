@@ -15,6 +15,7 @@ import thumbWhitepaper from "@/assets/thumb-whitepaper.jpg";
 import thumbFinBitcoin from "@/assets/thumb-fin-bitcoin.png";
 import thumbFinEthereum from "@/assets/thumb-fin-ethereum.png";
 import thumbFinXrp from "@/assets/thumb-fin-xrp.png";
+import thumbUcenter from "@/assets/thumb-ucenter.png";
 
 interface Video {
   id: string;
@@ -63,7 +64,7 @@ const modules: Module[] = [
   {
     id: "bc-101", title: "Blockchain Basics", description: "Understand the technology powering the decentralized revolution.", category: "blockchain",
     videos: [
-      { id: "b1", title: "What is Blockchain?", duration: "14:00", completed: true, locked: false, thumbnail: thumbWhitepaper, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
+      { id: "b1", title: "What is Blockchain?", duration: "14:00", completed: true, locked: false, thumbnail: thumbUcenter, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
       { id: "b2", title: "Consensus Mechanisms Explained", duration: "20:30", completed: false, locked: false, thumbnail: thumbRoadmap, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
       { id: "b3", title: "Smart Contracts & dApps", duration: "24:45", completed: false, locked: false, thumbnail: thumbDefi, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
       { id: "b4", title: "Layer 1 vs Layer 2 Solutions", duration: "17:50", completed: false, locked: false, thumbnail: thumbBrand, videoUrl: "https://www.youtube.com/embed/SSo_EIwHSd4" },
