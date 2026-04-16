@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { GraduationCap, Play, Clock, CheckCircle2, Lock, ChevronDown, ChevronRight, X } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useRef } from "react";
+import { GraduationCap, Play, Clock, CheckCircle2, Lock, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -108,155 +105,145 @@ const modules: Module[] = [
 ];
 
 const categories = [
-  { key: "all" as const, label: "All Modules" },
+  { key: "all" as const, label: "All" },
   { key: "finance" as const, label: "Finance" },
   { key: "blockchain" as const, label: "Blockchain" },
-  { key: "crypto" as const, label: "Cryptocurrency" },
+  { key: "crypto" as const, label: "Crypto" },
 ];
 
-const categoryColors: Record<string, string> = {
-  finance: "bg-accent text-accent-foreground",
-  blockchain: "bg-primary/15 text-primary",
-  crypto: "bg-ring/15 text-ring",
-};
+function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => void }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const amount = scrollRef.current.clientWidth * 0.75;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between px-1">
+        <h2 className="text-lg font-semibold text-foreground">{mod.title}</h2>
+        <div className="flex gap-1">
+          <button onClick={() => scroll("left")} className="p-1.5 rounded-full hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors">
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button onClick={() => scroll("right")} className="p-1.5 rounded-full hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors">
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={scrollRef}
+        className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 -mx-1 px-1"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        {mod.videos.map((video) => (
+          <button
+            key={video.id}
+            disabled={video.locked}
+            onClick={() => !video.locked && onSelect(video)}
+            className={`group relative flex-shrink-0 w-[220px] rounded-lg overflow-hidden transition-all duration-300
+              ${video.locked ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:scale-105 hover:z-10 hover:shadow-xl hover:shadow-black/20"}
+            `}
+          >
+            {/* Thumbnail */}
+            <div className="relative aspect-video bg-muted overflow-hidden rounded-lg">
+              <img
+                src={video.thumbnail}
+                alt={video.title}
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+              {/* Play button on hover */}
+              {!video.locked && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="h-11 w-11 rounded-full bg-primary flex items-center justify-center shadow-lg">
+                    <Play className="h-5 w-5 text-primary-foreground ml-0.5" />
+                  </div>
+                </div>
+              )}
+
+              {/* Completed badge */}
+              {video.completed && (
+                <div className="absolute top-2 right-2">
+                  <CheckCircle2 className="h-5 w-5 text-accent drop-shadow-md" />
+                </div>
+              )}
+
+              {/* Lock overlay */}
+              {video.locked && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Lock className="h-6 w-6 text-muted-foreground" />
+                </div>
+              )}
+
+              {/* Duration */}
+              <div className="absolute bottom-8 right-2 bg-black/70 text-white text-[10px] font-medium px-1.5 py-0.5 rounded">
+                {video.duration}
+              </div>
+
+              {/* Title inside thumbnail */}
+              <div className="absolute bottom-0 left-0 right-0 p-2">
+                <p className="text-xs font-medium text-white leading-tight line-clamp-2 drop-shadow-md">
+                  {video.title}
+                </p>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Academy() {
   const [filter, setFilter] = useState<"all" | "finance" | "blockchain" | "crypto">("all");
-  const [openModules, setOpenModules] = useState<string[]>(["fin-101"]);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const filtered = filter === "all" ? modules : modules.filter((m) => m.category === filter);
 
-
-  const toggleModule = (id: string) => {
-    setOpenModules((prev) =>
-      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
-    );
-  };
-
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <GraduationCap className="h-5 w-5 text-primary" />
-            </div>
-            <h1 className="text-2xl font-bold text-foreground">Academy</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+            <GraduationCap className="h-5 w-5 text-primary" />
           </div>
-          <p className="text-muted-foreground text-sm">
-            Learn Finance, Blockchain &amp; Crypto — at your own pace.
-          </p>
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Academy</h1>
+            <p className="text-muted-foreground text-xs">Learn Finance, Blockchain & Crypto</p>
+          </div>
         </div>
 
+        {/* Filter pills */}
+        <div className="flex gap-1.5 bg-muted/50 rounded-full p-1">
+          {categories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setFilter(cat.key)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200
+                ${filter === cat.key
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+                }
+              `}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-2 flex-wrap">
-        {categories.map((cat) => (
-          <Button
-            key={cat.key}
-            variant={filter === cat.key ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter(cat.key)}
-          >
-            {cat.label}
-          </Button>
+      {/* Module rows */}
+      <div className="space-y-6">
+        {filtered.map((mod) => (
+          <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
         ))}
-      </div>
-
-      {/* Modules */}
-      <div className="space-y-4">
-        {filtered.map((mod) => {
-
-          return (
-            <Collapsible key={mod.id} open={openModules.includes(mod.id)} onOpenChange={() => toggleModule(mod.id)}>
-              <Card className="border-border overflow-hidden">
-                <CollapsibleTrigger asChild>
-                  <CardHeader className="cursor-pointer hover:bg-muted/30 transition-colors py-4 px-5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 min-w-0">
-                        {openModules.includes(mod.id) ? (
-                          <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
-                        ) : (
-                          <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
-                        )}
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <CardTitle className="text-base">{mod.title}</CardTitle>
-                            <Badge variant="secondary" className={categoryColors[mod.category]}>
-                              {mod.category === "crypto" ? "Crypto" : mod.category === "blockchain" ? "Blockchain" : "Finance"}
-                            </Badge>
-                          </div>
-                          <p className="text-xs text-muted-foreground mt-1">{mod.description}</p>
-                        </div>
-                      </div>
-                      <span className="text-xs text-muted-foreground hidden sm:block">
-                          {mod.videos.filter((v) => v.completed).length}/{mod.videos.length} lessons
-                        </span>
-                    </div>
-                  </CardHeader>
-                </CollapsibleTrigger>
-
-                <CollapsibleContent>
-                  <CardContent className="p-4 pt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                      {mod.videos.map((video) => (
-                        <button
-                          key={video.id}
-                          disabled={video.locked}
-                          onClick={() => !video.locked && setSelectedVideo(video)}
-                          className={`group relative rounded-xl overflow-hidden border border-border text-left transition-all
-                            ${video.locked ? "opacity-50 cursor-not-allowed" : "hover:border-primary/40 hover:shadow-md cursor-pointer"}
-                          `}
-                        >
-                          {/* Thumbnail */}
-                          <div className="relative aspect-video bg-muted overflow-hidden">
-                            <img
-                              src={video.thumbnail}
-                              alt={video.title}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                            {/* Play overlay */}
-                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                              <div className="h-12 w-12 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
-                                <Play className="h-5 w-5 text-primary-foreground ml-0.5" />
-                              </div>
-                            </div>
-                            {/* Status badge */}
-                            {video.completed && (
-                              <div className="absolute top-2 right-2">
-                                <CheckCircle2 className="h-5 w-5 text-primary drop-shadow-md" />
-                              </div>
-                            )}
-                            {video.locked && (
-                              <div className="absolute inset-0 bg-background/60 flex items-center justify-center">
-                                <Lock className="h-6 w-6 text-muted-foreground" />
-                              </div>
-                            )}
-                            {/* Duration pill */}
-                            <div className="absolute bottom-2 right-2 bg-black/70 text-white text-[11px] font-medium px-1.5 py-0.5 rounded">
-                              {video.duration}
-                            </div>
-                          </div>
-
-                          {/* Title */}
-                          <div className="p-3">
-                            <p className={`text-sm font-medium leading-snug line-clamp-2 ${video.completed ? "text-muted-foreground" : "text-foreground"}`}>
-                              {video.title}
-                            </p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </CollapsibleContent>
-              </Card>
-            </Collapsible>
-          );
-        })}
       </div>
 
       {/* Video Player Dialog */}
