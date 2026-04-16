@@ -263,6 +263,51 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
     </div>
   );
 }
+function PortfolioFeatureBlock({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => void }) {
+  const featuredVideo = mod.videos[0];
+
+  return (
+    <div className="space-y-2.5">
+      <div className="px-1">
+        <h2 className="text-lg font-semibold text-foreground">{mod.title}</h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Left — Video */}
+        <button
+          onClick={() => onSelect(featuredVideo)}
+          className="group relative aspect-video bg-muted overflow-hidden rounded-xl cursor-pointer"
+        >
+          <img src={featuredVideo.thumbnail} alt={featuredVideo.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="h-14 w-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+              <Play className="h-6 w-6 text-primary-foreground ml-0.5" />
+            </div>
+          </div>
+          <div className="absolute bottom-3 left-3 bg-black/60 text-white text-xs font-medium px-2 py-1 rounded">
+            {featuredVideo.duration}
+          </div>
+        </button>
+
+        {/* Right — Text card */}
+        <div className="flex flex-col justify-center rounded-xl border border-border bg-card p-6 sm:p-8">
+          <Badge className="w-fit mb-4 bg-accent/10 text-accent border-accent/20 text-[10px] uppercase tracking-wider">
+            Featured Course
+          </Badge>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+            Build Your Investment Portfolio
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+            Learn how to construct a diversified investment portfolio using modern portfolio theory, asset allocation strategies, and risk management techniques. This comprehensive course covers everything from fundamental analysis to advanced hedging strategies used by professional fund managers.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {mod.videos.length} lessons • {mod.videos.filter(v => !v.locked).length} available
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Academy() {
   const [filter, setFilter] = useState<"all" | "finance" | "blockchain" | "crypto">("all");
@@ -278,9 +323,13 @@ export default function Academy() {
 
       {/* Module rows with vertical thumbnails */}
       <div className="space-y-6">
-        {filtered.map((mod) => (
-          <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
-        ))}
+        {filtered.map((mod) =>
+          mod.id === "fin-201" ? (
+            <PortfolioFeatureBlock key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+          ) : (
+            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+          )
+        )}
       </div>
 
       {/* Video Player Dialog */}
