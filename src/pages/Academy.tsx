@@ -15,6 +15,7 @@ import thumbWhitepaper from "@/assets/thumb-whitepaper.jpg";
 import thumbFinBitcoin from "@/assets/thumb-fin-bitcoin.png";
 import thumbFinEthereum from "@/assets/thumb-fin-ethereum.png";
 import thumbFinXrp from "@/assets/thumb-fin-xrp.png";
+import thumbUcenter from "@/assets/thumb-ucenter.png";
 
 interface Video {
   id: string;
