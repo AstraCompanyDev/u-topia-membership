@@ -332,6 +332,15 @@ export default function Academy() {
         )}
       </div>
 
+      {/* Fade-out "More to come" */}
+      <div className="relative pt-4 pb-12">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background pointer-events-none" />
+        <div className="relative text-center space-y-2 pt-8">
+          <p className="text-lg font-semibold text-muted-foreground animate-fade-in">More to come…</p>
+          <p className="text-sm text-muted-foreground/60 animate-fade-in">New courses and modules are being added regularly. Stay tuned!</p>
+        </div>
+      </div>
+
       {/* Video Player Dialog */}
       <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
         <DialogContent className="sm:max-w-3xl p-0 gap-0 overflow-hidden">
