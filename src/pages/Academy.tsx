@@ -295,10 +295,10 @@ function PortfolioFeatureBlock({ mod, onSelect }: { mod: Module; onSelect: (v: V
             Featured Course
           </Badge>
           <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
-            Build Your Investment Portfolio
+            Welcome to U.Center Academy Portal
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-            Learn how to construct a diversified investment portfolio using modern portfolio theory, asset allocation strategies, and risk management techniques. This comprehensive course covers everything from fundamental analysis to advanced hedging strategies used by professional fund managers.
+            Your gateway to mastering finance, blockchain, and cryptocurrency. Explore expert-led courses designed to equip you with the knowledge and strategies needed to navigate the future of digital assets and wealth management.
           </p>
           <p className="text-xs text-muted-foreground">
             {mod.videos.length} lessons • {mod.videos.filter(v => !v.locked).length} available
