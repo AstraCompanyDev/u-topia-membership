@@ -247,19 +247,6 @@ export default function Academy() {
             <p className="text-muted-foreground text-xs">Learn Finance, Blockchain & Crypto</p>
           </div>
         </div>
-        <div className="flex gap-1.5 bg-muted/50 rounded-full p-1">
-          {categories.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => setFilter(cat.key)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200
-                ${filter === cat.key ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}
-              `}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Auto-scrolling hero */}
