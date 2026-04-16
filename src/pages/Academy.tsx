@@ -309,7 +309,7 @@ function PortfolioFeatureBlock({ mod, onSelect }: { mod: Module; onSelect: (v: V
   );
 }
 
-
+export default function Academy() {
   const [filter, setFilter] = useState<"all" | "finance" | "blockchain" | "crypto">("all");
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
