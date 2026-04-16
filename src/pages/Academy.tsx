@@ -44,7 +44,7 @@ interface Module {
 
 const modules: Module[] = [
   {
-    id: "fin-101", title: "Finance Fundamentals", description: "Master the basics of personal and corporate finance.", category: "finance",
+    id: "fin-101", title: "Tokens in 60 Seconds", description: "Master the basics of personal and corporate finance.", category: "finance",
     videos: [
       { id: "f1", title: "Introduction to Financial Markets", duration: "12:30", completed: true, locked: false, thumbnail: thumbFinBitcoin, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
       { id: "f2", title: "Understanding Assets & Liabilities", duration: "18:45", completed: true, locked: false, thumbnail: thumbFinEthereum, videoUrl: "https://www.youtube.com/embed/Xn7KWR9EOGQ" },
