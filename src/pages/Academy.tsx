@@ -132,7 +132,7 @@ const categoryLabel = (c: string) => c === "crypto" ? "Cryptocurrency" : c === "
 
 function HeroCarousel({ onSelect }: { onSelect: (v: Video) => void }) {
   const [active, setActive] = useState(0);
-  const items = modules.map((m) => ({ module: m, video: m.videos[0] }));
+  const items = modules.slice(0, 3).map((m) => ({ module: m, video: m.videos[0] }));
 
   useEffect(() => {
     const timer = setInterval(() => setActive((p) => (p + 1) % items.length), 5000);
