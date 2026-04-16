@@ -139,7 +139,8 @@ function HeroCarousel({ onSelect }: { onSelect: (v: Video) => void }) {
     return () => clearInterval(timer);
   }, [items.length]);
 
-  const current = items[active];
+  const safeActive = active < items.length ? active : 0;
+  const current = items[safeActive];
 
   return (
     <div className="relative w-full rounded-xl overflow-hidden" style={{ aspectRatio: "3/1" }}>
