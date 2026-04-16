@@ -186,7 +186,7 @@ function HeroCarousel({ onSelect }: { onSelect: (v: Video) => void }) {
   );
 }
 
-function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => void }) {
+function ModuleRow({ mod, onSelect, horizontal = false }: { mod: Module; onSelect: (v: Video) => void; horizontal?: boolean }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -217,12 +217,11 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
             key={video.id}
             disabled={video.locked}
             onClick={() => !video.locked && onSelect(video)}
-            className={`group relative flex-shrink-0 w-[220px] transition-all duration-300
+            className={`group relative flex-shrink-0 ${horizontal ? "w-[300px]" : "w-[220px]"} transition-all duration-300
               ${video.locked ? "opacity-40 cursor-not-allowed" : "cursor-pointer hover:scale-105 hover:z-10"}
             `}
           >
-            {/* Vertical poster thumbnail */}
-            <div className="relative aspect-[2/3] bg-muted overflow-hidden rounded-lg">
+            <div className={`relative ${horizontal ? "aspect-video" : "aspect-[2/3]"} bg-muted overflow-hidden rounded-lg`}>
               <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
@@ -245,12 +244,10 @@ function ModuleRow({ mod, onSelect }: { mod: Module; onSelect: (v: Video) => voi
                 </div>
               )}
 
-              {/* Duration */}
               <div className="absolute top-2 left-2 bg-black/60 text-white text-[9px] font-medium px-1.5 py-0.5 rounded">
                 {video.duration}
               </div>
 
-              {/* Title at bottom */}
               <div className="absolute bottom-0 left-0 right-0 p-2.5">
                 <p className="text-[11px] font-semibold text-white leading-tight line-clamp-2 drop-shadow-md">
                   {video.title}
@@ -327,7 +324,7 @@ export default function Academy() {
           mod.id === "fin-201" ? (
             <PortfolioFeatureBlock key={mod.id} mod={mod} onSelect={setSelectedVideo} />
           ) : (
-            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} />
+            <ModuleRow key={mod.id} mod={mod} onSelect={setSelectedVideo} horizontal={mod.category === "blockchain" || mod.category === "crypto"} />
           )
         )}
       </div>
